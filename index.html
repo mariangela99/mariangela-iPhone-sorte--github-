@@ -36,7 +36,7 @@
   <div class="wrap">
     <div class="card hero">
       <div>
-        <h1>🎟️ Rifa iPhone 13 Pro Max 256 GB</h1>
+        <h1>🎟️ Rifa Solidaria- Sorteo iPhone 13 Pro Max 256 GB</h1>
         <div class="sub">Elegí hasta 4 números y escribime por WhatsApp 💬</div>
         <div class="pills" style="margin-top:6px">
           <span>$10.000 c/u (48 hs)</span><span>2 × $18.000</span><span>3 × $26.000</span>
@@ -56,15 +56,15 @@
       <div id="grid" class="grid" style="margin-top:10px;"></div>
       <div id="summary" class="sum">Seleccionados: —</div>
       <div class="actions">
-        <button id="confirm" class="btn" disabled>Confirmar por WhatsApp</button>
-        <button id="clear" class="btn secondary">Limpiar selección</button>
+        <button id="confirm" class="btn" disabled>Confirmación por WhatsApp</button>
+        <button id="clear" class="btn secondary">Limpiar selección de números</button>
       </div>
     </div>
 
     <div class="card bases" style="margin-top:12px;">
       <h3>📝 Bases & Condiciones</h3>
-      <p>• <b>Cómo participar:</b> Elegís número(s) disponible(s), pagás y enviás comprobante.</p>
-      <p>• <b>Confirmación:</b> El/los número(s) quedan “PAGO”. Si solo reservás, la reserva dura 10 MINUTOS.</p>
+      <p>• <b>Cómo participar:</b> Elegís número(s) disponible(s), pagás y enviás comprobante por WhatsApp.</p>
+      <p>• <b>Confirmación:</b> El/los número(s) quedan “PAGO”. Si solo reservás, la reserva dura 15 MINUTOS.</p>
       <p>• <b>Sorteo:</b> Cuando se vendan los 200 números (se fija fecha tope).</p>
       <p>• <b>Modalidad de sorteo:</b> Quiniela Nocturna CABA, últimas 3 cifras del 1.º premio.</p>
       <p>• <b>Transparencia:</b> Se publica el listado final, comprobante del sorteo y persona ganadxr.</p>
@@ -75,7 +75,7 @@
 
 <script>
 // === CONFIGURACIÓN ===
-const API_BASE = "https://script.google.com/macros/s/AKfycbxtP-F6v8BSlSUVWPquBwjw7E5iKJhkAqEdGtzLJkEN5NRA9zoC6MxYWKisNpAZU75YHg/exec"; // sirve /exec o googleusercontent con ?user_content_key=...
+const API_BASE = "https://script.google.com/macros/s/AKfycbxC0nDsK_2s4pKU2jLGFG9CklV_LwMV9IS0m9dZLVbYpYmWJ_3HtzLaKWb_6JoPo6jR8w/exec"; // sirve /exec o googleusercontent con ?user_content_key=...
 const WHATS = "5491133328404";
 const MAX_SELECT = 4;
 const PRICES = {1:10000, 2:18000, 3:26000};
@@ -175,28 +175,38 @@ function waLink(){
 btnConfirm.addEventListener('click', async () => {
   if (selected.size === 0) return;
 
-  const ns = [...selected].join(',');
-  const link = waLink(); // Preparo el link YA (iOS friendly)
+  const ns   = [...selected].join(',');
+  const link = waLink();               // preparar link YA (iOS-friendly)
+
+  // feedback visual
+  btnConfirm.disabled = true;
+  st.textContent = "Confirmando…";
+
+  // ⏱️ Fallback: si la API tarda >1.2s, igualmente abrimos WhatsApp
+  const fallback = setTimeout(() => {
+    window.location.href = link;       // iPhone: redirección directa
+  }, 1200);
 
   try {
     const res = await apiPost({ action: 'finalize', clientId, ns });
+    clearTimeout(fallback);
 
     if (res.lost && res.lost.length) {
-      // Se agotó alguno mientras confirmaba
       for (const n of res.lost) { taken.add(Number(n)); selected.delete(Number(n)); }
       renderGrid(); repaintSelections(); updateSummary();
-      st.textContent = "Estado: algunos números se agotaron. Elegí otros.";
+      st.textContent = "Algunos números se agotaron. Elegí otros.";
+      btnConfirm.disabled = false;
       return;
     }
 
-    // ✅ iPhone / Safari: abrir WhatsApp con redirección directa
-    window.location.href = link;
+    window.location.href = link;       // OK → abre WhatsApp
 
   } catch (e) {
-    // Si la API está lenta o falla, igual abrimos WhatsApp para no perder al cliente
+    // Error/latencia → igual abrimos WhatsApp para no perder la venta
     window.location.href = link;
   }
-
+});
+  
 btnClear.addEventListener('click', async ()=>{
   const ns=[...selected].join(',');
   selected.clear(); repaintSelections(); updateSummary();
