@@ -170,8 +170,10 @@ function waLink(){
   const total=bestPrice(arr.length);
   const msg=`Hola Mar! Quiero participar con el número: ${arr.join(', ')}.
 Total: $${pesos(total)}. 
+}
 Alias: ${ALIAS} ·
 CVU: ${CVU}.
+}
 Te envío el comprobante ahora.`;
   return "https://wa.me/"+WHATS+"?text="+encodeURIComponent(msg);
 }
