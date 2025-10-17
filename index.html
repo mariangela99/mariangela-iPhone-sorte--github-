@@ -148,7 +148,7 @@ function repaintSelections(){
 function updateSummary(){
   const arr=[...selected].sort((a,b)=>a-b).map(fmt);
   const k=arr.length; const total=k?bestPrice(k):0;
-  summary.textContent= k?`Seleccionados: ${arr.join(', ')} • Total sugerido: $${pesos(total)}`:"Seleccionados: —";
+  summary.textContent= k?`Seleccionados: ${arr.join(', ')} • Total a pagar : $${pesos(total)}`:"Seleccionados: —";
   btnConfirm.disabled=(k===0);
 }
 
@@ -168,8 +168,11 @@ async function toggle(n, el){
 function waLink(){
   const arr=[...selected].sort((a,b)=>a-b).map(fmt);
   const total=bestPrice(arr.length);
-  const msg=`Hola Mar! Quiero participar con el números: ${arr.join(', ')}. Total: $${pesos(total)}. Alias: ${ALIAS} · CVU: ${CVU}.
-  Te envío el comprobante ahora.`;
+  const msg=`Hola Mar! Quiero participar con el número: ${arr.join(', ')}.
+Total: $${pesos(total)}. 
+Alias: ${ALIAS} ·
+CVU: ${CVU}.
+Te envío el comprobante ahora.`;
   return "https://wa.me/"+WHATS+"?text="+encodeURIComponent(msg);
 }
 btnConfirm.addEventListener('click', async () => {
