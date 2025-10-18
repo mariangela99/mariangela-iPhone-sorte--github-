@@ -12,16 +12,16 @@
     --chip:#ffe4e6; --sold:#f5e7ee; --sel:#fce7f3;
   }
   *{box-sizing:border-box}
-  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-       background:linear-gradient(120deg,var(--bg1),var(--bg2));color:var(--text)}
+  body{
+    margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+    background:linear-gradient(120deg,var(--bg1),var(--bg2));color:var(--text)
+  }
   .wrap{max-width:1100px;margin:28px auto;padding:16px}
-  .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;
-        box-shadow:0 10px 30px rgba(190,24,93,.10)}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;box-shadow:0 10px 30px rgba(190,24,93,.10)}
   .hero{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
   h1{font-size:clamp(1.6rem,3.2vw,2.3rem);margin:0 0 6px}
   .sub{color:var(--muted);font-weight:600}
-  .pills span{display:inline-block;border:1px solid var(--border);color:var(--accent);
-              background:var(--chip);border-radius:999px;padding:6px 12px;margin-right:8px;font-weight:800}
+  .pills span{display:inline-block;border:1px solid var(--border);color:var(--accent);background:var(--chip);border-radius:999px;padding:6px 12px;margin-right:8px;font-weight:800}
 
   /* Números */
   .grid{display:grid;grid-template-columns:repeat(10,1fr);gap:12px}
@@ -33,6 +33,7 @@
   }
   .num:hover{transform:translateY(-1px);border-color:var(--accent-2)}
   .num.sel{background:#831843;color:#fff;border-color:#831843;box-shadow:0 0 0 2px rgba(131,24,67,.15) inset}
+  .num.pending{opacity:.6}
   .num:active{transform:scale(.98)}
   .num:focus-visible{outline:2px solid #ec4899;outline-offset:2px}
   .num.sold{background:var(--sold);color:#a1a1aa;text-decoration:line-through;cursor:not-allowed}
@@ -44,9 +45,7 @@
 
   .sum{margin-top:8px;font-weight:800;color:#6b021b}
   .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
-  .btn{all:unset;cursor:pointer;padding:10px 14px;border-radius:10px;font-weight:800;
-       border:1px solid var(--border);background:linear-gradient(180deg,#fdf2f8,#fce7f3);
-       color:#831843;box-shadow:0 1px 0 rgba(0,0,0,.04)}
+  .btn{all:unset;cursor:pointer;padding:10px 14px;border-radius:10px;font-weight:800;border:1px solid var(--border);background:linear-gradient(180deg,#fdf2f8,#fce7f3);color:#831843;box-shadow:0 1px 0 rgba(0,0,0,.04)}
   .btn:disabled{opacity:.45;cursor:not-allowed}
   .btn.secondary{background:#fff}
   .status{font-size:.9rem;color:#9f1239}
@@ -130,12 +129,13 @@
     </div>
 
     <div class="qr">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=https%3A%2F%2Fwa.me%2F5491133328404"
+      <img id="qrwa"
+           src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=https%3A%2F%2Fwa.me%2F5491133328404"
            alt="QR WhatsApp 5491133328404">
       <div class="meta">
         Escaneá el QR para abrir <b>WhatsApp</b> o tocá:
         <br>
-        <a class="btn" href="https://wa.me/5491133328404" target="_blank" rel="noopener">Abrir WhatsApp</a>
+        <a id="waBottom" class="btn" href="https://wa.me/5491133328404" target="_blank" rel="noopener">Abrir WhatsApp</a>
       </div>
     </div>
   </div>
@@ -153,7 +153,7 @@ const CVU       = "0000003100061623575458";
 /* ==== PROMO 72h ==== 
    Si querés una fecha fija, cambiá PROMO_END por algo como:
    const PROMO_END = new Date('2025-10-21T23:59:00-03:00');
-   O pasalo por querystring: ?promoEnd=2025-10-21T23:59:00-03:00
+   O usá ?promoEnd=2025-10-21T23:59:00-03:00 en la URL.
 */
 const PROMO_END = (() => {
   const q = new URL(location.href).searchParams.get('promoEnd');
@@ -170,11 +170,13 @@ function tickTimer(){
 tickTimer(); setInterval(tickTimer, 60000);
 
 /* ==== UI refs ==== */
-const grid     = document.getElementById('grid');
-const summary  = document.getElementById('summary');
+const grid       = document.getElementById('grid');
+const summary    = document.getElementById('summary');
 const btnConfirm = document.getElementById('confirm');
 const btnClear   = document.getElementById('clear');
-const st      = document.getElementById('st');
+const st         = document.getElementById('st');
+const waBtn      = document.getElementById('waBottom');
+const qrImg      = document.getElementById('qrwa');
 
 let selected = new Set();
 let taken    = new Set();
@@ -218,37 +220,58 @@ function repaintSelections(){
   }
 }
 
-function updateSummary(){
-  const arr=[...selected].sort((a,b)=>a-b).map(fmt);
-  const k=arr.length; const total=k?bestPrice(k):0;
-  summary.textContent = k ? `Seleccionados: ${arr.join(', ')} • Total a pagar: $${pesos(total)}` : "Seleccionados: —";
-  btnConfirm.disabled = (k===0);
-}
-
-async function toggle(n, el){
-  if(selected.has(n)){
-    try{ await apiPost({action:'release', clientId, ns:String(n)});}catch(e){}
-    selected.delete(n); el.classList.remove('sel'); updateSummary(); return;
-  }
-  if(selected.size>=MAX_SELECT) return;
-  try{
-    const res=await apiPost({action:'hold', clientId, ns:String(n)});
-    if(res.ok && res.ok.includes(n)){ selected.add(n); el.classList.add('sel'); updateSummary(); }
-    else{ taken.add(n); el.classList.add('sold'); }
-  }catch(e){ st.textContent="Estado: error de red"; }
-}
-
 function waLink(){
   const arr=[...selected].sort((a,b)=>a-b).map(fmt);
   const total=bestPrice(arr.length);
-  const msg=`Hola Mar! Quiero participar con el número(s): ${arr.join(', ')}.
+  let msg;
+  if (arr.length){
+    msg = `Hola Mar! Quiero participar con el número(s): ${arr.join(', ')}.
 Total: $${pesos(total)}.
 
 Alias: ${ALIAS}
 CVU: ${CVU}
 
 Te envío el comprobante ahora.`;
+  } else {
+    msg = `Hola Mar! Quiero participar de la rifa. ¿Me pasás números disponibles?
+Alias: ${ALIAS}
+CVU: ${CVU}`;
+  }
   return "https://wa.me/"+WHATS+"?text="+encodeURIComponent(msg);
+}
+
+function updateSummary(){
+  const arr=[...selected].sort((a,b)=>a-b).map(fmt);
+  const k=arr.length; const total=k?bestPrice(k):0;
+  summary.textContent = k ? `Seleccionados: ${arr.join(', ')} • Total a pagar: $${pesos(total)}` : "Seleccionados: —";
+
+  // Sincronizar botón y QR del final con el mismo mensaje
+  const link = waLink();
+  if (waBtn) waBtn.href = link;
+  if (qrImg) qrImg.src = "https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=" + encodeURIComponent(link);
+
+  btnConfirm.disabled = (k===0);
+}
+
+async function toggle(n, el){
+  // Quitar selección inmediata
+  if(selected.has(n)){
+    el.classList.remove('sel'); selected.delete(n); updateSummary();
+    try{ await apiPost({action:'release', clientId, ns:String(n)});}catch(e){}
+    return;
+  }
+  if(selected.size>=MAX_SELECT) return;
+
+  // Feedback inmediato mientras reservamos en el servidor
+  el.classList.add('pending');
+  try{
+    const res=await apiPost({action:'hold', clientId, ns:String(n)});
+    el.classList.remove('pending');
+    if(res.ok && res.ok.includes(n)){ selected.add(n); el.classList.add('sel'); updateSummary(); }
+    else{ taken.add(n); el.classList.add('sold'); }
+  }catch(e){
+    el.classList.remove('pending'); st.textContent="Estado: error de red";
+  }
 }
 
 btnConfirm.addEventListener('click', async () => {
@@ -283,7 +306,8 @@ async function refreshState(){
     st.textContent="Estado: conectado ✓";
   }catch(e){ st.textContent="Estado: sin conexión"; }
 }
-refreshState(); setInterval(refreshState, 15000);
+refreshState(); setInterval(refreshState,15000);
 </script>
 </body>
 </html>
+
