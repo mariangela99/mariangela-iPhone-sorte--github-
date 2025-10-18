@@ -66,7 +66,26 @@
     font-size:clamp(14px,3.7vw,18px);line-height:1;letter-spacing:.5px; /* 👈 ajusta tamaño en celu */
   }
   .num:hover{transform:translateY(-1px);border-color:var(--accent-2)}
-  .num.sel{background:var(--sel);border-color:var(--accent);color:#831843}
+  ./* 🔄 reemplazá tu .num.sel por esta: */
+.num.sel{
+  background:#831843;           /* más oscuro */
+  color:#fff;
+  border-color:#831843;
+  box-shadow:0 0 0 2px rgba(131,24,67,.15) inset;
+}
+/* 👇 feedback al toque y accesibilidad */
+.num:active{ transform:scale(.98); }
+.num:focus-visible{ outline:2px solid #ec4899; outline-offset:2px; }
+
+/* ⭐ estilos para Instagram y QR */
+.ig{display:inline-flex;align-items:center;gap:8px;font-weight:700}
+.ig a{color:#831843;text-decoration:none}
+.ig a:hover{text-decoration:underline}
+
+.qr{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:10px}
+.qr img{width:140px;height:140px;border-radius:12px;border:1px solid var(--border);background:#fff}
+.qr .meta{font-size:.95rem;color:#6b021b;font-weight:600}
+
   .num.sold{background:var(--sold);color:#a1a1aa;text-decoration:line-through;cursor:not-allowed}
 
   .legend{
@@ -111,7 +130,7 @@
         <h1>🎟️ Rifa Solidaria- Sorteo iPhone 13 Pro Max 256 GB</h1>
         <div class="sub">Elegí hasta 4 números y escribime por WhatsApp 💬</div>
         <div class="pills" style="margin-top:6px">
-          <span>$10.000 c/u (48 hs)</span><span>2 × $18.000</span><span>3 × $26.000</span>
+        <span>$10.000 c/u (48 hs)</span><span>2 × $18.000</span><span>3 × $26.000</span>
         </div>
         <div id="st" class="status">Estado: conectando…</div>
       </div>
@@ -125,7 +144,37 @@
           <span class="chip sold"></span> Reservado/Pago
         </div>
       </div>
-      <div id="grid" class="grid" style="margin-top:10px;"></div>
+            <div id="grid" class="grid" style="margin-top:10px;"></div>
+      <div id="summary" class="sum">Seleccionados: —</div>
+      <div class="actions">
+        <button id="confirm" class="btn" disabled>Confirmar por WhatsApp</button>
+        <button id="clear" class="btn secondary">Limpiar selección</button>
+      </div>
+    </div> <!-- ← cierra la tarjeta de NÚMEROS -->
+        </div> <!-- ← cierra la tarjeta de NÚMEROS -->
+
+    <!-- 👇 PEGAR AQUÍ el bloque del QR de WhatsApp -->
+    <div class="card" style="margin-top:12px;">
+      <h3>💬 Contacto directo</h3>
+      <div class="qr">
+        <!-- QR hacia tu wa.me -->
+        <img
+          src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=https%3A%2F%2Fwa.me%2F5491133328404"
+          alt="QR WhatsApp 5491133328404">
+        <div class="meta">
+          Escaneá el QR para abrir <b>WhatsApp</b> o tocá:
+          <br>
+          <a class="btn" href="https://wa.me/5491133328404" target="_blank" rel="noopener">Abrir WhatsApp</a>
+        </div>
+      </div>
+    </div>
+    <!-- ☝️ FIN del bloque QR -->
+
+    <div class="card bases" style="margin-top:12px;">
+      <h3>📝 Bases & Condiciones</h3>
+      ...
+
+
       <div id="summary" class="sum">Seleccionados: —</div>
       <div class="actions">
         <button id="confirm" class="btn" disabled>Confirmación por WhatsApp</button>
@@ -144,6 +193,16 @@
       <p>• <b>Devoluciones:</b> No aplica una vez acreditado el pago.</p>
     </div>
   </div>
+  <div class="ig" style="margin-top:8px;">
+  <span>Instagram:</span>
+  <a href="https://instagram.com/mariangelaramirezz" target="_blank" rel="noopener">
+    @mariangelaramirezz
+  </a>
+</div>
+  
+  <div class="sub" style="margin-top:4px;">
+  Medio de pago único: <b>Transferencia</b> — Alias: <b>cukirescatados</b> · CVU: <b>0000003100061623575458</b>
+</div>
 
 <script>
 // === CONFIGURACIÓN ===
