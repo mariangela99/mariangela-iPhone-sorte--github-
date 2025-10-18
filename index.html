@@ -1,299 +1,294 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
-<title>🎟️ Rifa – Live (hasta 3 números + WhatsApp)</title>
-<style>
-  :root{
-    --bg1:#fff1f2; --bg2:#ffe4e6; --card:#fff7fb; --border:#fbcfe8;
-    --text:#3f0a1a; --muted:#9f1239; --accent:#ec4899; --accent-2:#f472b6;
-    --chip:#ffe4e6; --sold:#f5e7ee; --sel:#fce7f3;
-  }
-  *{box-sizing:border-box}
-  body{
-    margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-    background:linear-gradient(120deg,var(--bg1),var(--bg2));color:var(--text)
-  }
-  .wrap{max-width:1100px;margin:28px auto;padding:16px}
-  .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;box-shadow:0 10px 30px rgba(190,24,93,.10)}
-  .hero{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-  h1{font-size:clamp(1.6rem,3.2vw,2.3rem);margin:0 0 6px}
-  .sub{color:var(--muted);font-weight:600}
-  .pills span{display:inline-block;border:1px solid var(--border);color:var(--accent);background:var(--chip);border-radius:999px;padding:6px 12px;margin-right:8px;font-weight:800}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>🎟️ Rifa – Live (hasta 3 números + WhatsApp)</title>
+  <style>
+    :root{
+      --bg1:#fff1f2; --bg2:#ffe4e6; --card:#fff7fb; --border:#fbcfe8;
+      --text:#3f0a1a; --muted:#9f1239; --accent:#ec4899; --accent-2:#f472b6;
+      --chip:#ffe4e6; --sold:#f5e7ee; --sel:#fce7f3;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      background:linear-gradient(120deg,var(--bg1),var(--bg2)); color:var(--text);
+    }
+    .wrap{max-width:1100px;margin:28px auto;padding:16px}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;box-shadow:0 10px 30px rgba(190,24,93,.10)}
+    .hero{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+    h1{font-size:clamp(1.6rem,3.2vw,2.3rem);margin:0 0 6px}
+    .sub{color:var(--muted);font-weight:600}
+    .pills{margin-top:6px}
+    .pills span{display:inline-block;border:1px solid var(--border);color:var(--accent);background:var(--chip);border-radius:999px;padding:6px 12px;margin-right:8px;font-weight:800}
 
-  /* Números */
-  .grid{display:grid;grid-template-columns:repeat(10,1fr);gap:12px}
-  .num{
-    text-align:center;padding:12px 6px;border-radius:12px;border:1px solid var(--border);
-    background:#fff;color:var(--text);font-weight:800;user-select:none;cursor:pointer;
-    transition:.12s ease;box-shadow:0 2px 0 rgba(0,0,0,.04);
-    font-size:clamp(14px,3.7vw,18px);line-height:1;letter-spacing:.5px;
-  }
-  .num:hover{transform:translateY(-1px);border-color:var(--accent-2)}
-  .num.sel{background:#831843;color:#fff;border-color:#831843;box-shadow:0 0 0 2px rgba(131,24,67,.15) inset}
-  .num.pending{opacity:.6}
-  .num:active{transform:scale(.98)}
-  .num:focus-visible{outline:2px solid #ec4899;outline-offset:2px}
-  .num.sold{background:var(--sold);color:#a1a1aa;text-decoration:line-through;cursor:not-allowed}
+    /* números */
+    .grid{display:grid;grid-template-columns:repeat(10,1fr);gap:12px}
+    .num{
+      text-align:center;padding:12px 6px;border-radius:12px;border:1px solid var(--border);
+      background:#fff;color:var(--text);font-weight:800;user-select:none;cursor:pointer;
+      transition:.12s ease;box-shadow:0 2px 0 rgba(0,0,0,.04);
+      font-size:clamp(14px,3.7vw,18px);line-height:1;letter-spacing:.5px;
+    }
+    .num:hover{transform:translateY(-1px);border-color:var(--accent-2)}
+    .num.sel{background:#831843;color:#fff;border-color:#831843;box-shadow:0 0 0 2px rgba(131,24,67,.15) inset}
+    .num:active{transform:scale(.98)}
+    .num:focus-visible{outline:2px solid #ec4899;outline-offset:2px}
+    .num.sold{background:var(--sold);color:#a1a1aa;text-decoration:line-through;cursor:not-allowed}
 
-  .legend{display:flex;gap:10px;align-items:center;color:#9f1239;font-size:.95rem;margin-top:8px;flex-wrap:wrap;row-gap:6px}
-  .legend .chip{width:14px;height:14px;border-radius:4px;display:inline-block;background:#fff;border:1px solid var(--border)}
-  .legend .chip.sel{background:var(--sel);border-color:var(--accent)}
-  .legend .chip.sold{background:var(--sold)}
+    /* leyenda / acciones */
+    .legend{display:flex;gap:10px;align-items:center;color:#9f1239;font-size:.95rem;margin-top:8px;flex-wrap:wrap;row-gap:6px}
+    .legend .chip{width:14px;height:14px;border-radius:4px;display:inline-block;background:#fff;border:1px solid var(--border)}
+    .legend .chip.sel{background:var(--sel);border-color:var(--accent)}
+    .legend .chip.sold{background:var(--sold)}
+    .sum{margin-top:8px;font-weight:800;color:#6b021b}
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+    .btn{all:unset;cursor:pointer;padding:10px 14px;border-radius:10px;font-weight:800;border:1px solid var(--border);background:linear-gradient(180deg,#fdf2f8,#fce7f3);color:#831843;box-shadow:0 1px 0 rgba(0,0,0,.04)}
+    .btn:disabled{opacity:.45;cursor:not-allowed}
+    .btn.secondary{background:#fff}
+    .status{font-size:.9rem;color:#9f1239}
 
-  .sum{margin-top:8px;font-weight:800;color:#6b021b}
-  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
-  .btn{all:unset;cursor:pointer;padding:10px 14px;border-radius:10px;font-weight:800;border:1px solid var(--border);background:linear-gradient(180deg,#fdf2f8,#fce7f3);color:#831843;box-shadow:0 1px 0 rgba(0,0,0,.04)}
-  .btn:disabled{opacity:.45;cursor:not-allowed}
-  .btn.secondary{background:#fff}
-  .status{font-size:.9rem;color:#9f1239}
+    /* bloque final */
+    .foot-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .qr{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+    .qr img{width:160px;height:160px;border-radius:12px;border:1px solid var(--border);background:#fff}
+    .ig{font-weight:700}
+    .ig a{color:#831843;text-decoration:none}
+    .ig a:hover{text-decoration:underline}
+    .pay li{margin:4px 0}
 
-  /* Instagram, QR y Medios de pago */
-  .ig{display:inline-flex;align-items:center;gap:8px;font-weight:700}
-  .ig a{color:#831843;text-decoration:none}
-  .ig a:hover{text-decoration:underline}
-  .qr{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:10px}
-  .qr img{width:140px;height:140px;border-radius:12px;border:1px solid var(--border);background:#fff}
-  .qr .meta{font-size:.95rem;color:#6b021b;font-weight:600}
-  .pay{margin-top:10px;line-height:1.55}
-  .pay .line{display:block}
-  .pay .tag{font-weight:800}
-
-  /* Responsivo */
-  @media (max-width:900px){ .grid{grid-template-columns:repeat(8,1fr)} }
-  @media (max-width:640px){ .grid{grid-template-columns:repeat(6,1fr)} .num{padding:12px 4px} }
-  @media (max-width:420px){ .grid{grid-template-columns:repeat(5,1fr)} .num{padding:12px 2px;font-size:clamp(13px,4vw,17px)} }
-</style>
+    /* responsive */
+    @media (max-width: 900px){ .grid{grid-template-columns:repeat(8,1fr)} }
+    @media (max-width: 640px){ .grid{grid-template-columns:repeat(6,1fr)} .num{padding:12px 4px} .foot-cols{grid-template-columns:1fr} }
+    @media (max-width: 420px){ .grid{grid-template-columns:repeat(5,1fr)} .num{padding:12px 2px;font-size:clamp(13px,4vw,17px)} }
+  </style>
 </head>
 <body>
-<div class="wrap">
-  <!-- HERO -->
-  <div class="card hero">
-    <div>
-      <h1>🎟️ Rifa Solidaria – iPhone 13 Pro Max 256 GB</h1>
-      <div class="sub">Elegí hasta 3 números y escribime por WhatsApp 💬</div>
-      <div class="pills" style="margin-top:6px">
-        <span>$10.000 c/u (promo)</span><span>2 × $18.000</span><span>3 × $26.000</span>
-      </div>
-      <div id="timer" class="sub" style="margin-top:6px;"></div>
-      <div id="st" class="status">Estado: conectando…</div>
-    </div>
-  </div>
-
-  <!-- TABLERO DE NÚMEROS -->
-  <div class="card" style="margin-top:12px;">
-    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
-      <div class="legend">
-        <span class="chip"></span> Disponible
-        <span class="chip sel"></span> Seleccionado
-        <span class="chip sold"></span> Reservado/Pago
+  <div class="wrap">
+    <!-- Encabezado -->
+    <div class="card hero">
+      <div>
+        <h1>🎟️ Rifa iPhone 13 Pro Max 256 GB</h1>
+        <div class="sub">Elegí hasta 3 números y escribime por WhatsApp 💬</div>
+        <div class="pills">
+          <span>1 × $10.000</span><span>2 × $18.000</span><span>3 × $26.000</span>
+        </div>
+        <div id="st" class="status">Estado: conectando…</div>
       </div>
     </div>
-    <div id="grid" class="grid" style="margin-top:10px;"></div>
-    <div id="summary" class="sum">Seleccionados: —</div>
-    <div class="actions">
-      <button id="confirm" class="btn" disabled>Confirmar por WhatsApp</button>
-      <button id="clear" class="btn secondary">Limpiar selección números</button>
-    </div>
-  </div>
 
-  <!-- BASES -->
-  <div class="card bases" style="margin-top:12px;">
-    <h3>📝 Bases & Condiciones</h3>
-    <p>• <b>Cómo participar:</b> Elegís número(s) disponible(s), pagás y enviás comprobante por WhatsApp.</p>
-    <p>• <b>Confirmación:</b> El/los número(s) quedan “PAGO”. Si solo reservás, la reserva dura 15 MINUTOS.</p>
-    <p>• <b>Sorteo:</b> Cuando se vendan los 200 números (se fija fecha tope).</p>
-    <p>• <b>Modalidad de sorteo:</b> ?....</p>
-    <p>• <b>Transparencia:</b> Se publica el listado final, comprobante del sorteo y persona ganadxr.</p>
-    <p>• <b>Entrega:</b> <i>En mano en Palmas del Pilar, Tortugas Open Mall, El Solar Shopping o envío a cargo del/la ganador/a.</i></p>
-    <p>• <b>Devoluciones:</b> No aplica una vez acreditado el pago.</p>
-  </div>
+    <!-- Números -->
+    <div class="card" style="margin-top:12px;">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;">
+        <div class="legend">
+          <span class="chip"></span> Disponible
+          <span class="chip sel"></span> Seleccionado
+          <span class="chip sold"></span> Reservado/PAGO
+        </div>
+      </div>
 
-  <!-- CONTACTO + PAGOS + QR (AL FINAL) -->
-  <div class="card" style="margin-top:12px;">
-    <h3>📬 Contacto & Medios de pago</h3>
-
-    <div class="ig">
-      <span>Instagram:</span>
-      <a href="https://instagram.com/mariangelaramirezz" target="_blank" rel="noopener">@mariangelaramirezz</a>
+      <div id="grid" class="grid" style="margin-top:10px;"></div>
+      <div id="summary" class="sum">Seleccionados: —</div>
+      <div class="actions">
+        <button id="confirm" class="btn" disabled>Confirmación por WhatsApp</button>
+        <button id="clear" class="btn secondary">Limpiar selección de números</button>
+      </div>
     </div>
 
-    <div class="pay">
-      <span class="line"><span class="tag">Medio de pago único:</span> Transferencia</span>
-      <span class="line">Cuenta de Mercado Pago</span>
-      <span class="line">Titular: <b>Francesca Lisanti</b></span>
-      <span class="line">Alias: <b>cukirescatados</b></span>
-      <span class="line">CVU: <b>0000003100061623575458</b></span>
+    <!-- Bases y Condiciones -->
+    <div class="card bases" style="margin-top:12px;">
+      <h3>📝 Bases & Condiciones</h3>
+      <p>• <b>Cómo participar:</b> Elegís número(s) disponible(s), pagás y enviás comprobante por WhatsApp.</p>
+      <p>• <b>Confirmación:</b> El/los número(s) quedan “PAGO”. Si solo reservás, la reserva dura 15 MINUTOS.</p>
+      <p>• <b>Sorteo:</b> Cuando se vendan los 200 números (se fija fecha tope).</p>
+      <p>• <b>Modalidad de sorteo:</b> Quiniela Nocturna CABA, últimas 3 cifras del 1.º premio.</p>
+      <p>• <b>Transparencia:</b> Se publica el listado final, comprobante del sorteo y persona ganadxr.</p>
+      <p>• <b>Entrega:</b> <i>En mano en Palmas del Pilar, Tortugas Open Mall, Solar Shopping o envío a cargo del/la ganador/a.</i></p>
+      <p>• <b>Devoluciones:</b> No aplica una vez acreditado el pago.</p>
     </div>
 
-    <div class="qr">
-      <img id="qrwa"
-           src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=https%3A%2F%2Fwa.me%2F5491133328404"
-           alt="QR WhatsApp 5491133328404">
-      <div class="meta">
-        Escaneá el QR para abrir <b>WhatsApp</b> o tocá:
-        <br>
+    <!-- Bloque final: contacto + medios de pago -->
+    <div class="card" style="margin-top:12px;">
+      <div class="foot-cols">
+        <!-- Columna 1: QR + Instagram -->
+        <div>
+          <h3>💬 Contacto directo</h3>
+          <div class="qr">
+            <!-- Subí este archivo al repo o cambiá el src -->
+            <img src="qr_whatsapp_perm.png" alt="QR WhatsApp 5491133328404">
+            <div>
+              Escaneá el QR para abrir <b>WhatsApp</b> o tocá:<br>
+              <a class="btn" href="https://wa.me/5491133328404" target="_blank" rel="noopener">Abrir WhatsApp</a>
+            </div>
+          </div>
+          <p class="ig" style="margin-top:12px;">
+            Instagram: <a href="https://instagram.com/mariangelaramirezz" target="_blank" rel="noopener">@mariangelaramirezz</a>
+          </p>
+        </div>
 
-        
-        <a id="waBottom" class="btn" href="https://wa.me/5491133328404" target="_blank" rel="noopener">Abrir WhatsApp</a>
+        <!-- Columna 2: Medios de pago -->
+        <div>
+          <h3>💳 Medio único de pago</h3>
+          <ul class="pay" style="list-style: none; padding-left: 0;">
+            <li><b>Medio de pago único:</b> Transferencia</li>
+            <li><b>Cuenta de Mercado Pago</b></li>
+            <li><b>Titular:</b> Francesca Lisanti</li>
+            <li><b>Alias:</b> cukirescatados</li>
+            <li><b>CVU:</b> 0000003100061623575458</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 <script>
-/* ==== CONFIG ==== */
+/* ===== CONFIG ===== */
 const API_BASE = "https://script.google.com/macros/s/AKfycbxC0nDsK_2s4pKU2jLGFG9CklV_LwMV9IS0m9dZLVbYpYmWJ_3HtzLaKWb_6JoPo6jR8w/exec";
-const WHATS     = "5491133328404";
-const MAX_SELECT= 4;
-const PRICES    = {1:10000, 2:18000, 3:26000};
-const ALIAS     = "cukirescatados";
-const CVU       = "0000003100061623575458";
+const WHATS    = "5491133328404";
+const MAX_SELECT = 4;
+const PRICES   = {1:10000, 2:18000, 3:26000};
+const ALIAS    = "cukirescatados";
+const CVU      = "0000003100061623575458";
 
-}
-tickTimer(); setInterval(tickTimer, 60000);
-
-/* ==== UI refs ==== */
-const grid       = document.getElementById('grid');
-const summary    = document.getElementById('summary');
+/* ===== DOM ===== */
+const grid     = document.getElementById('grid');
+const summary  = document.getElementById('summary');
 const btnConfirm = document.getElementById('confirm');
 const btnClear   = document.getElementById('clear');
-const st         = document.getElementById('st');
-const waBtn      = document.getElementById('waBottom');
-const qrImg      = document.getElementById('qrwa');
+const st       = document.getElementById('st');
 
+/* ===== State ===== */
 let selected = new Set();
 let taken    = new Set();
 
 const clientId = (() => {
-  const k='raffleClientId'; let v=localStorage.getItem(k);
+  const k='raffleClientId';
+  let v=localStorage.getItem(k);
   if(!v){ v=(crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random()); localStorage.setItem(k,v); }
   return v;
 })();
 
-function fmt(n){return n.toString().padStart(3,'0');}
-function pesos(n){return n.toLocaleString('es-AR');}
+/* ===== Utils ===== */
+function fmt(n){ return n.toString().padStart(3,'0'); }
+function pesos(n){ return n.toLocaleString('es-AR'); }
 
-function buildUrl(params){ const q=new URLSearchParams(params).toString(); const join=API_BASE.includes('?')?'&':'?'; return API_BASE+(q?(join+q):''); }
-async function apiGet(params){ const r=await fetch(buildUrl(params),{cache:'no-store'}); if(!r.ok) throw new Error('GET '+r.status); return r.json(); }
-async function apiPost(params){ const r=await fetch(API_BASE,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(params)}); if(!r.ok) throw new Error('POST '+r.status); return r.json(); }
-
+function buildUrl(params){
+  const q = new URLSearchParams(params).toString();
+  const join = API_BASE.includes('?') ? '&' : '?';
+  return API_BASE + (q ? (join+q) : '');
+}
+async function apiGet(params){
+  const r = await fetch(buildUrl(params), {cache:'no-store'});
+  if(!r.ok) throw new Error('GET '+r.status);
+  return r.json();
+}
+async function apiPost(params){
+  const r = await fetch(API_BASE, {
+    method:'POST',
+    headers:{'Content-Type':'application/x-www-form-urlencoded'},
+    body:new URLSearchParams(params)
+  });
+  if(!r.ok) throw new Error('POST '+r.status);
+  return r.json();
+}
 function bestPrice(k){
-  const tiers=Object.keys(PRICES).map(Number).sort((a,b)=>a-b);
-  const dp=Array(k+1).fill(Infinity); dp[0]=0;
-  for(let i=1;i<=k;i++) for(const t of tiers) if(t<=i) dp[i]=Math.min(dp[i], dp[i-t]+PRICES[t]);
+  const tiers = Object.keys(PRICES).map(Number).sort((a,b)=>a-b);
+  const dp = Array(k+1).fill(Infinity); dp[0]=0;
+  for(let i=1;i<=k;i++){ for(const t of tiers){ if(t<=i) dp[i] = Math.min(dp[i], dp[i-t] + PRICES[t]); } }
   return dp[k];
 }
 
+/* ===== UI ===== */
 function renderGrid(){
-  grid.innerHTML='';
+  grid.innerHTML = '';
   for(let i=1;i<=200;i++){
-    const d=document.createElement('div');
+    const d = document.createElement('div');
     d.className='num'; d.textContent=fmt(i);
     if(taken.has(i)){ d.classList.add('sold'); }
-    else{ d.addEventListener('click',()=>toggle(i,d)); }
+    else{ d.addEventListener('click', () => toggle(i,d)); }
     grid.appendChild(d);
   }
 }
-
 function repaintSelections(){
   document.querySelectorAll('.num.sel').forEach(el=>el.classList.remove('sel'));
   for(const n of selected){
-    const el=grid.children[n-1];
+    const el = grid.children[n-1];
     if(el && !el.classList.contains('sold')) el.classList.add('sel');
   }
 }
+function updateSummary(){
+  const arr=[...selected].sort((a,b)=>a-b).map(fmt);
+  const k=arr.length, total=k?bestPrice(k):0;
+  summary.textContent = k ? `Seleccionados: ${arr.join(', ')} • Total a pagar: $${pesos(total)}` : "Seleccionados: —";
+  btnConfirm.disabled = (k===0);
+}
 
+async function toggle(n, el){
+  if(selected.has(n)){
+    try{ await apiPost({action:'release', clientId, ns:String(n)});}catch(e){}
+    selected.delete(n); el.classList.remove('sel'); updateSummary(); return;
+  }
+  if(selected.size >= MAX_SELECT) return;
+  try{
+    const res = await apiPost({action:'hold', clientId, ns:String(n)});
+    if(res.ok && res.ok.includes(n)){ selected.add(n); el.classList.add('sel'); updateSummary(); }
+    else{ taken.add(n); el.classList.add('sold'); }
+  }catch(e){ st.textContent="Estado: error de red"; }
+}
+
+/* ===== WhatsApp ===== */
 function waLink(){
   const arr=[...selected].sort((a,b)=>a-b).map(fmt);
   const total=bestPrice(arr.length);
-  let msg;
-  if (arr.length){
-    msg = `Hola Mar! Quiero participar con el número(s): ${arr.join(', ')}.
+  const msg=`Hola Mar! Quiero participar con el número: ${arr.join(', ')}.
 Total: $${pesos(total)}.
 
 Alias: ${ALIAS}
 CVU: ${CVU}
 
 Te envío el comprobante ahora.`;
-  } else {
-    msg = `Hola Mar! Quiero participar de la rifa.
-Me pasás números disponibles?
-Alias: ${ALIAS}
-CVU: ${CVU}`;
-  }
   return "https://wa.me/"+WHATS+"?text="+encodeURIComponent(msg);
 }
-
-function updateSummary(){
-  const arr=[...selected].sort((a,b)=>a-b).map(fmt);
-  const k=arr.length; const total=k?bestPrice(k):0;
-  summary.textContent = k ? `Seleccionados: ${arr.join(', ')} • Total a pagar: $${pesos(total)}` : "Seleccionados: —";
-
-  // Sincronizar botón y QR del final con el mismo mensaje
+btnConfirm.addEventListener('click', async ()=>{
+  if(selected.size===0) return;
+  const ns = [...selected].join(',');
   const link = waLink();
-  if (waBtn) waBtn.href = link;
-  if (qrImg) qrImg.src = "https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=" + encodeURIComponent(link);
-
-  btnConfirm.disabled = (k===0);
-}
-
-async function toggle(n, el){
-  // Quitar selección inmediata
-  if(selected.has(n)){
-    el.classList.remove('sel'); selected.delete(n); updateSummary();
-    try{ await apiPost({action:'release', clientId, ns:String(n)});}catch(e){}
-    return;
-  }
-  if(selected.size>=MAX_SELECT) return;
-
-  // Feedback inmediato mientras reservamos en el servidor
-  el.classList.add('pending');
+  btnConfirm.disabled = true;
+  st.textContent = "Confirmando…";
+  const fallback = setTimeout(()=>{ window.location.href = link; }, 1200);
   try{
-    const res=await apiPost({action:'hold', clientId, ns:String(n)});
-    el.classList.remove('pending');
-    if(res.ok && res.ok.includes(n)){ selected.add(n); el.classList.add('sel'); updateSummary(); }
-    else{ taken.add(n); el.classList.add('sold'); }
-  }catch(e){
-    el.classList.remove('pending'); st.textContent="Estado: error de red";
-  }
-}
-
-btnConfirm.addEventListener('click', async () => {
-  if (selected.size === 0) return;
-  const ns   = [...selected].join(',');
-  const link = waLink();
-  btnConfirm.disabled = true; st.textContent = "Confirmando…";
-  const fallback = setTimeout(()=>{ location.href = link; }, 1200);
-  try{
-    const res = await apiPost({ action:'finalize', clientId, ns });
+    const res = await apiPost({action:'finalize', clientId, ns});
     clearTimeout(fallback);
-    if (res.lost && res.lost.length){
-      for (const n of res.lost){ taken.add(Number(n)); selected.delete(Number(n)); }
+    if(res.lost && res.lost.length){
+      for(const n of res.lost){ taken.add(Number(n)); selected.delete(Number(n)); }
       renderGrid(); repaintSelections(); updateSummary();
-      st.textContent="Algunos números se agotaron. Elegí otros."; btnConfirm.disabled=false; return;
+      st.textContent = "Algunos números se agotaron. Elegí otros.";
+      btnConfirm.disabled=false; return;
     }
-    location.href = link;
-  }catch(e){ location.href = link; }
+    window.location.href = link;
+  }catch(e){
+    window.location.href = link;
+  }
 });
-
 btnClear.addEventListener('click', async ()=>{
   const ns=[...selected].join(',');
   selected.clear(); repaintSelections(); updateSummary();
   if(ns){ try{ await apiPost({action:'release', clientId, ns}); }catch(e){} }
 });
 
+/* ===== Live state ===== */
 async function refreshState(){
   try{
-    const res=await apiGet({action:'state'});
-    taken=new Set([...(res.sold||[]), ...(res.reserved||[])]);
+    const res = await apiGet({action:'state'});
+    taken = new Set([...(res.sold||[]), ...(res.reserved||[])]);
     renderGrid(); repaintSelections(); updateSummary();
     st.textContent="Estado: conectado ✓";
   }catch(e){ st.textContent="Estado: sin conexión"; }
 }
-refreshState(); setInterval(refreshState,15000);
+refreshState();
+setInterval(refreshState, 15000);
 </script>
 </body>
 </html>
