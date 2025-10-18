@@ -95,7 +95,7 @@
     <div id="summary" class="sum">Seleccionados: —</div>
     <div class="actions">
       <button id="confirm" class="btn" disabled>Confirmar por WhatsApp</button>
-      <button id="clear" class="btn secondary">Limpiar selecció números</button>
+      <button id="clear" class="btn secondary">Limpiar selección números</button>
     </div>
   </div>
 
@@ -135,6 +135,8 @@
       <div class="meta">
         Escaneá el QR para abrir <b>WhatsApp</b> o tocá:
         <br>
+
+        
         <a id="waBottom" class="btn" href="https://wa.me/5491133328404" target="_blank" rel="noopener">Abrir WhatsApp</a>
       </div>
     </div>
@@ -150,22 +152,6 @@ const PRICES    = {1:10000, 2:18000, 3:26000};
 const ALIAS     = "cukirescatados";
 const CVU       = "0000003100061623575458";
 
-/* ==== PROMO 72h ==== 
-   Si querés una fecha fija, cambiá PROMO_END por algo como:
-   const PROMO_END = new Date('2025-10-21T23:59:00-03:00');
-   O usá ?promoEnd=2025-10-21T23:59:00-03:00 en la URL.
-*/
-const PROMO_END = (() => {
-  const q = new URL(location.href).searchParams.get('promoEnd');
-  if (q) { const d = new Date(q); if (!isNaN(d)) return d; }
-  return new Date(Date.now() + 72*60*60*1000);
-})();
-const timerEl = document.getElementById('timer');
-function tickTimer(){
-  const s = Math.floor((PROMO_END - new Date())/1000);
-  if (s <= 0) { timerEl.textContent = 'Precio regular activo'; return; }
-  const d = Math.floor(s/86400), h = Math.floor((s%86400)/3600), m = Math.floor((s%3600)/60);
-  timerEl.textContent = `Precio lanzamiento $10.000 termina en ${d}d ${h}h ${m}m`;
 }
 tickTimer(); setInterval(tickTimer, 60000);
 
@@ -234,8 +220,6 @@ CVU: ${CVU}
 Te envío el comprobante ahora.`;
   } else {
     msg = `Hola Mar! Quiero participar de la rifa.
-
-
 Me pasás números disponibles?
 Alias: ${ALIAS}
 CVU: ${CVU}`;
