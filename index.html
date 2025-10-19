@@ -61,6 +61,36 @@
   @media (max-width:900px){ .grid{grid-template-columns:repeat(8,1fr)} }
   @media (max-width:640px){ .grid{grid-template-columns:repeat(6,1fr)} .num{padding:12px 4px} }
   @media (max-width:420px){ .grid{grid-template-columns:repeat(5,1fr)} .num{padding:12px 2px;font-size:clamp(13px,4vw,17px)} }
+  /* mismo color oscuro para seleccionados */
+.num.sel{
+  background:#831843;
+  color:#fff;
+  border-color:#831843;
+  box-shadow:0 0 0 2px rgba(131,24,67,.15) inset;
+}
+
+/* botón principal del mismo color oscuro */
+#confirm.btn{
+  background:#831843;
+  color:#fff;
+  border-color:#831843;
+}
+#confirm.btn:hover:not(:disabled){
+  filter:brightness(.95);
+  transform:translateY(-1px);
+}
+#confirm.btn:disabled{
+  background:#f3e1ea;
+  color:#8b5a6a;
+  border-color:#f3e1ea;
+  opacity:.9;
+}
+
+/* rótulos más oscuros */
+.label.dark{ color:#831843; font-weight:800; }
+
+/* clicks más rápidos en móviles */
+.num,.btn{ touch-action: manipulation; }
 </style>
 </head>
 <body>
@@ -134,6 +164,7 @@
   const API_BASE = "https://script.google.com/macros/s/AKfycbxC0nDsK_2s4pKU2jLGFG9CklV_LwMV9IS0m9dZLVbYpYmWJ_3HtzLaKWb_6JoPo6jR8w/exec";
   const WHATS    = "5491133328404";
   const MAX_SELECT = 3;
+  const inflight = new Set(); // números con petición en curso
   const PRICES   = {1:10000, 2:18000, 3:26000};
   const ALIAS = "cukirescatados";
   const CVU   = "0000003100061623575458";
@@ -167,16 +198,17 @@
 
   // Pintar grilla rápido primero
   function renderGridBase(){
-    const frag = document.createDocumentFragment();
-    for(let i=1;i<=200;i++){
-      const d = document.createElement('div');
-      d.className = 'num';
-      d.textContent = fmt(i);
-      d.addEventListener('click', ()=>toggle(i,d));
-      frag.appendChild(d);
-    }
-    grid.innerHTML = '';
-    grid.appendChild(frag);
+  const frag = document.createDocumentFragment();
+  for (let i = 1; i <= 200; i++) {
+    const d = document.createElement('div');
+    d.className = 'num';
+    d.textContent = fmt(i);
+    // 👇 SIN "else": simplemente agregá el listener
+    d.addEventListener('click', () => handleToggle(i, d));
+    frag.appendChild(d);
+  }
+  grid.innerHTML = '';
+  grid.appendChild(frag);
   }
 
   function applyTaken(){
@@ -209,6 +241,56 @@
       : 'Seleccionados: —';
     btnConfirm.disabled = (k===0);
   }
+function handleToggle(n, el){
+  if (inflight.has(n) || el.classList.contains('sold')) return;
+
+  // Quitar selección (optimista)
+  if (selected.has(n)){
+    selected.delete(n);
+    el.classList.remove('sel');
+    updateSummary();
+    inflight.add(n);
+    apiPost({action:'release', clientId, ns:String(n)})
+      .finally(()=>inflight.delete(n));
+    return;
+  }
+
+  // Límite de selección
+  if (selected.size >= MAX_SELECT){
+    pulse(summary);
+    return;
+  }
+
+  // Agregar selección (optimista)
+  selected.add(n);
+  el.classList.add('sel');
+  updateSummary();
+
+  // Confirmar con la API en segundo plano
+  inflight.add(n);
+  apiPost({action:'hold', clientId, ns:String(n)})
+    .then(res=>{
+      if (!(res.ok && res.ok.includes(n))){
+        // Alguien lo tomó antes → revertimos y lo marcamos vendido
+        selected.delete(n);
+        el.classList.remove('sel');
+        taken.add(n);
+        el.classList.add('sold');
+        updateSummary();
+        st.textContent = "Ese número se reservó recién. Elegí otro.";
+      }
+    })
+    .catch(()=>{ /* si falla red, el hold expira solo por TTL */ })
+    .finally(()=>inflight.delete(n));
+}
+
+// pequeño feedback cuando se llega al límite
+function pulse(el){
+  el.animate(
+    [{transform:'scale(1)'},{transform:'scale(1.02)'},{transform:'scale(1)'}],
+    {duration:300}
+  );
+}
 
   async function apiGet(params){
     const q = new URLSearchParams(params).toString();
