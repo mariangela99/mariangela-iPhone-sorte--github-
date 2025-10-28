@@ -225,16 +225,14 @@ h1{margin:0 0 6px;font-size:clamp(1.6rem,3.2vw,2.2rem)}
       <div id="st" class="status">Estado: conectando…</div>
     </div>
   </div>
-  <!-- ===== Premios ===== -->
-  <div class="card" style="margin-top:12px;">
+ <ul class="prizes" style="margin:0 0 6px 16px; padding:0 0 0 4px">
+  <li>
+    <b>1.º Premio:</b>
+    <p class="prize">Premio: iPhone 13 Pro Max nuevo de 256&nbsp;GB. Color Blue Sierra</p>
+  </li>
+</ul>
+</div> <!-- cierra la card de “Premio” -->
 
-    <h3>🏆 Premio</h3>
-    <ul class="prizes" style="margin:0 0 6px 16px; padding:0 0 0 4px">
-      <li>
-        <b>1.º Premio:</b>
-        <p class="prize">Premio: iPhone 13 Pro Max nuevo de 256&nbsp;GB. Color Blue Sierra</p>
-   </div>
-        
     <div class="legend">
   <span class="legend-title">Selección de números</span>
   <span><span class="chip"></span> Disponible</span>
@@ -306,8 +304,9 @@ h1{margin:0 0 6px;font-size:clamp(1.6rem,3.2vw,2.2rem)}
     </div>
 
     <div class="qr">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Fwa.me%2F5491172361533" alt="QR WhatsApp">
-      <a class="btn" href="https://wa.me/5491172361533" target="_blank" rel="noopener">Abrir WhatsApp</a>
+    <img id="qr-wa" src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Fwa.me%2F5491172361533" alt="QR WhatsApp">
+<a id="btn-wa" class="btn" href="https://wa.me/5491172361533" target="_blank" rel="noopener">Abrir WhatsApp</a>
+
     </div>
   </div>
 
@@ -320,7 +319,7 @@ h1{margin:0 0 6px;font-size:clamp(1.6rem,3.2vw,2.2rem)}
   
 <script>
 /* ========= CONFIG ========= */
-const API_BASE   = "https://script.google.com/macros/s/AKfycbwSVIghpX-yAEAWpHu5H8s8hSWoHeu1l1tzzFv-QfzkRcDuLWlAgK_jzY0-ub3VTkMb/exec";
+const API_BASE = "https://script.google.com/macros/s/AKfycbwSVIghpX-yAEAWpHu5H8s8hSWoHeu1l1tzzFv-QfzkRcDuLWlAgK_jzY0-ub3VTkMb/exec";
 const WHATS      = "5491172361533";                 // número E.164 SIN + ni 0
 const MAX_N      = 200;                              // cantidad de números
 const MAX_SELECT = 3;                                // tope de selección
@@ -537,22 +536,15 @@ btnClear.addEventListener('click', async ()=>{
 });
 
 function setStatus(ok){
-  const st = document.getElementById('st');
-  if (!st) return;
+  const stEl = document.getElementById('st');
+  if (!stEl) return;
   if (ok){
-    st.textContent = 'Estado: conectado ✓';
-    st.className = 'status ok';
+    stEl.textContent = 'Estado: conectado ✓';
+    stEl.className = 'status ok';
   } else {
-    st.textContent = 'Estado: sin conexión';
-    st.className = 'status error';
+    stEl.textContent = 'Estado: sin conexión';
+    stEl.className = 'status error';
   }
-}
-
-/* ========= Estado/refresh ========= */
-function setStatus(ok){
-  if (!st) return;
-  if (ok){ st.textContent = 'Estado: conectado ✓'; }
-  else   { st.textContent = 'Estado: sin conexión'; }
 }
 
 async function refreshState(){
@@ -565,10 +557,10 @@ async function refreshState(){
     setStatus(false);
   }
 }
-<script>
+
 /* --- cache-buster manual --- */
 (function(){
-  const VERSION = 'v3.8'; // ← cambiá este número cuando actualices
+  const VERSION = 'v3.9'; // ← cambiá este número cuando actualices
   document.querySelectorAll('link[rel="stylesheet"], script[src]').forEach(el=>{
     const attr = el.tagName === 'LINK' ? 'href' : 'src';
     const old = el.getAttribute(attr);
@@ -590,13 +582,11 @@ async function refreshState(){
       return origFetch(url, opts);
     };
 
-  }
-})();
-/* ========= Inicio ========= */
-renderGridBase();
-refreshState();
+renderGridBase();        // crea 001..200
+refreshState();          // pinta vendidos/reservados si la API responde
 setInterval(refreshState, 20000);
-updateWhatsAppTargets();
+updateWhatsAppTargets(); // sincroniza QR y botón
+
 </script>
 </body>
 </html>
