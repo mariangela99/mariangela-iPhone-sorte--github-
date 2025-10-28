@@ -53,16 +53,32 @@ h1{margin:0 0 6px;font-size:clamp(1.6rem,3.2vw,2.2rem)}
 #confirm.btn:hover:not(:disabled){filter:brightness(.95);transform:translateY(-1px)}
 #confirm.btn:disabled{background:#f3e1ea;color:#8b5a6a;border-color:#f3e1ea;opacity:.9}
 /* Premio */
+  
 .prize{margin:.35rem 0 1rem;font-weight:600;color:var(--dark)}
 /* QR y footer */
+  
 .paygrid{display:grid;gap:6px;margin:10px 0 0}
 .paygrid b{display:block;color:var(--dark)}
 .qr{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:10px}
 .qr img{width:160px;height:160px;border-radius:12px;border:1px solid var(--border);background:#fff}
 /* Estado conexión */
+  
 .status{font-size:.9rem;font-weight:600;margin-top:4px}
 .status.ok{color:#047857}
 .status.error{color:#b91c1c}
+
+  /* Oculto visual accesible */
+.status.visually-hidden{
+  position:absolute !important;
+  left:-9999px !important;
+  width:1px !important;
+  height:1px !important;
+  overflow:hidden !important;
+  clip:rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+  
 /* Responsive */
 @media (max-width:900px){.grid{grid-template-columns:repeat(8,1fr)}}
 @media (max-width:640px){.grid{grid-template-columns:repeat(6,1fr)}.num{padding:12px 4px}}
@@ -133,7 +149,7 @@ h1{margin:0 0 6px;font-size:clamp(1.6rem,3.2vw,2.2rem)}
       <li><b>Reservas:</b> la reserva automática dura <b>15 minutos</b>. Vencido ese plazo sin PAGO, los números vuelven a estar disponibles.</li>
       <li><b>Premios:</b> no son canjeables por dinero.</li>
       <li><b>Transparencia:</b> se realiza en base a <a href="https://quiniela.loteriadelaciudad.gob.ar/" target="_blank" rel="noopener"><b>la Quiniela Nocturna de la Ciudad de Buenos Aires</b></a>. Publicación de ganadores en <b>24 h</b>.</li>
-      <li><b>Entrega:</b> en mano (Palmas del Pilar, TOM, Unicenter, El Solar, Alto Palermo) o envío a cargo del/la ganador/a.</li>
+      <li><b>Entrega:</b> en mano en <i>Palmas del Pilar, Tortugas Open Mall, Unicenter Shopping, El Solar Shopping, Alto Palermo Shopping</i> o envío a cargo del/la ganador/a (a coordinar).</li>
       <li><b>Plazo para reclamar:</b> <b>10 días corridos</b> desde la publicación.</li>
       <li><b>Devoluciones:</b> no aplican una vez acreditado el pago.</li>
     </ul>
@@ -247,14 +263,14 @@ function updateSummary(){
 function buildWaMessage(){
   const arr=[...selected].sort((a,b)=>a-b).map(fmt);
   const total=bestPrice(arr.length);
-  const msg=`Hola Cuki Rescatados, quiero participar con el/los número(s): ${arr.join(', ')}.
+  const msg=`Hola Mar! quiero participar de la rifa con el/los número(s): ${arr.join(', ')}.
 Total a pagar: $${pesos(total)}.
 
 Alias: ${ALIAS}
 CVU: ${CVU}
 
-Consulto bases y resultados en: https://www.loteria.gba.gov.ar/
-Envío comprobante ahora.`;
+Envío comprobante ahora en breve!
+Muchas Gracias!`;
   return `https://wa.me/${WHATS}?text=${encodeURIComponent(msg)}`;
 }
 function updateWhatsAppTargets(){
@@ -323,11 +339,18 @@ btnClear.addEventListener('click', async ()=>{
   if(ns){ try{ await apiPost({action:'release',clientId,ns}); }catch(_){ } }
 });
 
-/* ========= Estado ========= */
 function setStatus(ok){
-  const stEl=document.getElementById('st'); if(!stEl) return;
-  if(ok){ stEl.textContent='Estado: conectado ✓'; stEl.className='status ok'; }
-  else  { stEl.textContent='Estado: sin conexión'; stEl.className='status error'; }
+  const stEl = document.getElementById('st');
+  if (!stEl) return;
+
+  // mantené siempre oculto y con clase base
+  stEl.classList.add('status', 'visually-hidden');
+
+  // alterná solo los flags de estado
+  stEl.classList.toggle('ok', !!ok);
+  stEl.classList.toggle('error', !ok);
+
+  stEl.textContent = ok ? 'Estado: conectado ✓' : 'Estado: sin conexión';
 }
 
 /* ========= Refresco ========= */
@@ -340,7 +363,7 @@ async function refreshState(){
 
 /* --- cache-buster manual (CERRADO CORRECTAMENTE) --- */
 (function(){
-  const VERSION='v3.11';
+  const VERSION='v3.12';
   document.querySelectorAll('link[rel="stylesheet"],script[src]').forEach(el=>{
     const attr=el.tagName==='LINK'?'href':'src';
     const old=el.getAttribute(attr); if(!old||old.includes('data:')) return;
