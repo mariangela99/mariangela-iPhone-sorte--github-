@@ -128,14 +128,32 @@
 
   <!-- Bases -->
   <div class="card" style="margin-top:12px;">
-    <h3>📝 Bases & Condiciones</h3>
-    <p>• <b>Cómo participar:</b> Elegís número(s) disponible(s), pagás y enviás comprobante por WhatsApp.</p>
-    <p>• <b>Confirmación:</b> El/los número(s) quedan “PAGO”. Si solo reservás, la reserva dura 10 MINUTOS.</p>
-    <p>• <b>Sorteo:</b> Cuando se vendan los 200 números (se fija fecha tope).</p>
-    <p>• <b>Modalidad de sorteo:</b> Quiniela Nocturna de la Ciudad (CABA), <u>últimas 3 cifras</u> del 1.º premio.</p>
-    <p>• <b>Transparencia:</b> Se publica el listado final, comprobante del sorteo y persona ganadxr.</p>
-    <p>• <b>Entrega:</b> En mano en Palmas del Pilar, Tortugas Open Mall, Solar Shopping o envío a cargo del/la ganador/a.</p>
-    <p>• <b>Devoluciones:</b> No aplica una vez acreditado el pago.</p>
+<h3>📝 Bases & Condiciones </h3>
+    <ul class="prizes">
+       <li><b>Fecha de sorteo:</b> <b>28/11/2025</b>.</li>
+      <li><b>Modalidad de sorteo:</b> <b>Quiniela Nocturna de la Ciudad (CABA)</b> del día del sorteo.
+      Se toman las <b>últimas 3 cifras</b> del 1.º al 3.º premio para definir los <b>3 ganadores</b>.</li>
+<li><b>Regla técnica de asignación (del 001 al 200):</b></li>
+      <ol>
+    <li>Si el número sorteado termina entre 201 y 999, se le restan 500 para llevarlo al rango válido.
+      <br><i>Ejemplo:</i> si sale <b>824</b>, se transforma en <b>324</b>; si sale <b>999</b>, se transforma en <b>499</b>.</li>
+        <li><b>Sin repetidos:</b> si un número ya resultó ganador, se usa la siguiente posición del extracto (4.º, 5.º, …) hasta completar 6 ganadores ÚNICOS.</li>
+      <li>Para que todos tengan las mismas chances, se usa la conversion automática.</li>
+      </ol>
+    </li>
+      <li><b>Cómo participar:</b> elegís un númerodisponible en la pagina y escribís por WhatsApp para confirmar.
+      El/los número(s) quedan en estado “Reservado” hasta acreditar el PAGO.</li>
+    <li><b>Reservas:</b> la reserva automática dura <b>15 minutos</b>. Vencido ese plazo sin PAGO, los números vuelven a estar disponibles.</li>
+    <li><b>Premio:</b> No son canjeables por dinero.</li>
+    <li><b>Transparencia:</b> El sorteo se realizará en base a los resultados oficiales de la 
+<a href="https://quiniela.loteriadelaciudad.gob.ar/" target="_blank" rel="noopener"><b>Quiniela Nocturna de la Ciudad de Buenos Aires</b></a>,
+garantizando total transparencia.
+Se conservarán capturas del extracto oficial publicado en la web de Lotería de la Ciudad, junto con el procedimiento de asignación de los números ganadores según las tres últimas cifras de los premios sorteados.  
+El cierre del sorteo y la publicación de ganadores se realizará el mismo día del resultado oficial o dentro de las 24 horas posteriores.</li>
+      <li><b>Publicación y entrega:</b> se publican ganadores/as en Instagram y WhatsApp dentro de las <b>24 h</b>. Para validar, se solicita comprobante de pago y datos del/los número(s).</li>
+     <li><b>Entrega:</b> en mano en <i>Palmas del Pilar, Tortugas Open Mall, Unicenter Shopping, El Solar Shopping, Alto Palermo Shopping</i> o envío a cargo del/la ganador/a (a coordinar).</li>
+    <li><b>Plazo para reclamar:</b> <b>10 días corridos</b> desde la publicación. Pasado ese plazo, el premio se considera <b>desierto</b>.</li>
+    <li><b>Devoluciones:</b> no aplican una vez acreditado el pago.</li>
   </div>
 
   <!-- Contacto & Pago -->
@@ -147,8 +165,9 @@
       <div><b>Medio de pago único</b> Transferencia</div>
       <div><b>Cuenta</b> de Mercado Pago</div>
       <div><b>Titular</b> Francesca Lisanti</div>
+     <div><b>CVU</b> 0000003100061623575458</div>
       <div><b>Alias</b> cukirescatados</div>
-      <div><b>CVU</b> 0000003100061623575458</div>
+     
     </div>
 
     <div class="qr">
@@ -168,6 +187,15 @@
   const PRICES   = {1:10000, 2:18000, 3:26000};
   const ALIAS = "cukirescatados";
   const CVU   = "0000003100061623575458";
+
+    /* ========= Cache-buster (solo agrega ?v= si no existe) ========= */
+  (function () {
+    const v = 'v-1';
+    if (!location.search.includes('v=')) {
+      const u = new URL(location.href);
+      u.searchParams.set('v', v);
+      location.replace(u);
+    }
 
   const grid = document.getElementById('grid');
   const summary = document.getElementById('summary');
