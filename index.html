@@ -116,29 +116,44 @@
 
   .num:active { transform: scale(.98); }
 
-  /* Seleccionado: fondo bordó */
-  .num.sel{
-    background: #7a1035;
-    color: #fff;
-    border-color: #7a1035;
-  }
+  /* ——— Seleccionado: fondo bordó y TEXTO BLANCO de verdad ——— */
+.grid .num.sel{
+  background:#7a1035 !important;
+  border-color:#7a1035 !important;
+  color:#fff !important;
+}
+.grid .num.sel *{
+  color:#fff !important;
+  -webkit-text-fill-color:#fff; /* Safari iOS */
+}
+.grid .num.sel{
+  text-shadow: 0 1px 0 rgba(0,0,0,.15); /* mejora contraste */
+}
 
-  /* Vendido/reservado: gris */
-  .num.sold{
-    background: #f3f4f6;
-    color: #9ca3af;
-    border-color: #e5e7eb;
-  }
+/* ——— Estado por defecto y vendido (por si algo lo pisa) ——— */
+.grid .num{
+  background:#fff;
+  color:#5b0f2a;
+}
+.grid .num.sold{
+  background:#f3f4f6;
+  color:#9ca3af;
+  border-color:#e5e7eb;
+}
 
-  /* Por si alguna regla vieja ensucia todo dentro de .sel */
-  .sel .num { background: initial; color: inherit; border-color: inherit; }
-
-  /* Texto del premio */
-  .prize {
-    margin-top: .35rem;
-    font-weight: 600;
-    color: #7a1035;
-  }
+/* ——— Espacio entre “Premio” y los números ——— */
+/* si tu párrafo del premio tiene class="prize" */
+.prize{ 
+  margin: .35rem 0 .9rem;   /* agrega margen inferior */
+}
+/* y aseguramos un respiro arriba del grid */
+#grid{ 
+  margin-top: .6rem;
+}
+/* si tenés una fila de leyenda (Disponible/Seleccionado/Reservado) */
+.legend{ 
+  margin: .4rem 0 .9rem;
+}
 </style>
 </head>
 <body>
@@ -189,7 +204,7 @@
   <li><b>Fecha de sorteo:</b> <b>28/11/2025</b>.</li>
   <li><b>Modalidad de sorteo:</b> <b>Quiniela Nocturna de la Ciudad (CABA)</b> del día del sorteo.
       Se toman las <b>últimas 3 cifras</b> del <b>1.º, 2.º y 3.º premio</b> para definir los <b>3 ganadores</b>.</li>
-<li><b>Rango de números:</b> del <b>001</b> al <b>200</b>.</li>
+<li><b>Rango de números:</b> del <b>001</b> al <b>200</b>. 3 números por persona</li>
 <li><b>Regla de asignación simple (siempre al 001–200):</b>
     <ol>
       <li>De cada posición del extracto (1.º, 2.º, 3.º) se toman las <b>últimas 3 cifras</b> (valor 000–999).</li>
