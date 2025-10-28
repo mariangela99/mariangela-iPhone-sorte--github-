@@ -97,7 +97,7 @@ h1{margin:0 0 6px;font-size:clamp(1.6rem,3.2vw,2.2rem)}
       <div class="pills" style="margin-top:6px">
         <span>$10.000 c/u</span><span>2 × $18.000</span><span>3 × $26.000</span>
       </div>
-      <div id="st" class="status">Estado: conectando…</div>
+      <div id="st" class="status visually-hidden" aria-live="polite">Estado: conectando…</div>
     </div>
   </div>
 
@@ -363,7 +363,7 @@ async function refreshState(){
 
 /* --- cache-buster manual (CERRADO CORRECTAMENTE) --- */
 (function(){
-  const VERSION='v3.12';
+  const VERSION='v3.13';
   document.querySelectorAll('link[rel="stylesheet"],script[src]').forEach(el=>{
     const attr=el.tagName==='LINK'?'href':'src';
     const old=el.getAttribute(attr); if(!old||old.includes('data:')) return;
