@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>🎟️ Rifa Solidaria – SORTEO iPhone 13 Pro Max 256 GB🎟️</title>
+
+<link rel="icon" type="image/svg+xml"
+        href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><text y="50%" x="50%" dominant-baseline="middle" text-anchor="middle" font-size="50">🐾</text></svg>'>
+
+  
 <style>
   :root{
     --bg1:#fff1f2; --bg2:#ffe4e6; --card:#fff7fb; --border:#fbcfe8;
@@ -92,6 +97,48 @@
 
 /* clicks más rápidos en móviles */
 .num,.btn{ touch-action: manipulation; }
+
+   /* ——— Parche iOS: no pintes toda la pantalla al tocar ——— */
+  .grid, .num, .card, body {
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* Botoncitos por defecto */
+  .num{
+    background: #fff;
+    color: #5b0f2a;           /* bordó solo en texto */
+    border: 1px solid #f1c7d3;
+    box-shadow: 0 1px 0 rgba(0,0,0,.03);
+    transition: transform .08s ease, background-color .12s ease, color .12s ease, border-color .12s ease;
+  }
+
+  .num:active { transform: scale(.98); }
+
+  /* Seleccionado: fondo bordó */
+  .num.sel{
+    background: #7a1035;
+    color: #fff;
+    border-color: #7a1035;
+  }
+
+  /* Vendido/reservado: gris */
+  .num.sold{
+    background: #f3f4f6;
+    color: #9ca3af;
+    border-color: #e5e7eb;
+  }
+
+  /* Por si alguna regla vieja ensucia todo dentro de .sel */
+  .sel .num { background: initial; color: inherit; border-color: inherit; }
+
+  /* Texto del premio */
+  .prize {
+    margin-top: .35rem;
+    font-weight: 600;
+    color: #7a1035;
+  }
 </style>
 </head>
 <body>
@@ -108,7 +155,15 @@
       <div id="st" class="status">Estado: conectando…</div>
     </div>
   </div>
+  <!-- ===== Premios ===== -->
+  <div class="card" style="margin-top:12px;">
 
+    <h3>🏆 Premio</h3>
+    <ul class="prizes" style="margin:0 0 6px 16px; padding:0 0 0 4px">
+      <li>
+        <b>1.º Premio:</b>
+        <p class="prize">Premio: iPhone 13 Pro Max nuevo de 256&nbsp;GB. Color Blue Sierra</p>
+  
     <div class="card" style="margin-top:12px;">
     <div class="label dark">Selección de números</div>
       
