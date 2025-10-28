@@ -11,75 +11,132 @@
 
   
 <style>
-  :root{
-    --bg1:#fff1f2; --bg2:#ffe4e6; --card:#fff7fb; --border:#fbcfe8;
-    --text:#3f0a1a; --muted:#9f1239; --accent:#ec4899; --accent2:#f472b6;
-    --chip:#ffe4e6; --sold:#f5e7ee; --sel:#fce7f3; --dark:#831843;
-  }
-  *{box-sizing:border-box}
-  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-       background:linear-gradient(120deg,var(--bg1),var(--bg2));color:var(--text)}
-  .wrap{max-width:1100px;margin:28px auto;padding:16px}
-  .card{background:var(--card);border:1px solid var(--border);border-radius:16px;
-        padding:18px;box-shadow:0 10px 30px rgba(190,24,93,.10)}
-  .hero{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-  h1{margin:0 0 6px;font-size:clamp(1.6rem,3.2vw,2.2rem)}
-  .sub{color:var(--muted);font-weight:600}
-  .pills span{display:inline-block;border:1px solid var(--border);color:var(--accent);
-              background:var(--chip);border-radius:999px;padding:6px 12px;margin-right:8px;font-weight:800}
-  .status{font-size:.9rem;color:var(--muted)}
-  .label{display:inline-block;padding:8px 12px;border-radius:10px;font-weight:800}
-  .label.dark{background:var(--dark);color:#fff}
-
-  /* Números */
-  .grid{display:grid;grid-template-columns:repeat(10,1fr);gap:12px;margin-top:10px}
-  .num{
-       background:#fff;border:1px solid var(--border);border-radius:12px;
-       padding:12px 6px;text-align:center;font-weight:800;cursor:pointer;user-select:none;
-       box-shadow:0 2px 0 rgba(0,0,0,.04);transition:.12s ease;
-       font-size:clamp(14px,3.7vw,18px);line-height:1;letter-spacing:.5px}
-  .num:hover{transform:translateY(-1px);border-color:var(--accent2)}
-  .num.sel{background:var(--dark);color:#fff;border-color:var(--dark);box-shadow:0 0 0 2px rgba(131,24,67,.15) inset}
-  .num:active{transform:scale(.98)}
-  .num:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-  .num.sold{background:var(--sold);color:#a1a1aa;text-decoration:line-through;cursor:not-allowed}
-
-  .legend{display:flex;gap:12px;align-items:center;color:var(--muted);flex-wrap:wrap;margin-top:8px}
-  .chip{width:14px;height:14px;border-radius:4px;display:inline-block;background:#fff;border:1px solid var(--border)}
-  .chip.sel{background:var(--sel);border-color:var(--accent)}
-  .chip.sold{background:var(--sold)}
-  .sum{margin-top:8px;font-weight:800;color:#6b021b}
-
-  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
-  .btn{all:unset;cursor:pointer;padding:10px 14px;border-radius:10px;font-weight:800;
-       border:1px solid var(--border);background:linear-gradient(180deg,#fdf2f8,#fce7f3);
-       color:var(--dark);box-shadow:0 1px 0 rgba(0,0,0,.04);text-align:center}
-  .btn.secondary{background:#fff}
-  .btn:disabled{opacity:.45;cursor:not-allowed}
-
-  /* Footer contacto */
-  .paygrid{display:grid;grid-template-columns:1fr;gap:6px;margin:10px 0 0}
-  .paygrid b{display:block;color:var(--dark)}
-  .qr{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:10px}
-  .qr img{width:160px;height:160px;border-radius:12px;border:1px solid var(--border);background:#fff}
-
-  /* responsive */
-  @media (max-width:900px){ .grid{grid-template-columns:repeat(8,1fr)} }
-  @media (max-width:640px){ .grid{grid-template-columns:repeat(6,1fr)} .num{padding:12px 4px} }
-  @media (max-width:420px){ .grid{grid-template-columns:repeat(5,1fr)} .num{padding:12px 2px;font-size:clamp(13px,4vw,17px)} }
-  /* mismo color oscuro para seleccionados */
-.num.sel{
-  background:#831843;
-  color:#fff;
-  border-color:#831843;
-  box-shadow:0 0 0 2px rgba(131,24,67,.15) inset;
+:root{
+  --bg1:#fff1f2; --bg2:#ffe4e6; --card:#fff7fb; --border:#fbcfe8;
+  --text:#3f0a1a; --muted:#9f1239; --accent:#ec4899; --accent2:#f472b6;
+  --chip:#ffe4e6; --sold:#f5e7ee; --dark:#831843;
 }
 
-/* botón principal del mismo color oscuro */
+/* Base */
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+  background:linear-gradient(120deg,var(--bg1),var(--bg2));
+  color:var(--text);
+  -webkit-tap-highlight-color:transparent;
+  user-select:none;
+  -webkit-user-select:none;
+}
+.wrap{max-width:1100px;margin:28px auto;padding:16px}
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:18px;
+  box-shadow:0 10px 30px rgba(190,24,93,.10)
+}
+.hero{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+h1{margin:0 0 6px;font-size:clamp(1.6rem,3.2vw,2.2rem)}
+.sub{color:var(--muted);font-weight:600}
+
+/* Precios */
+.pills span{
+  display:inline-block;
+  border:1px solid var(--border);
+  color:var(--accent);
+  background:var(--chip);
+  border-radius:999px;
+  padding:6px 12px;
+  margin-right:8px;
+  font-weight:800
+}
+.status{font-size:.9rem;color:var(--muted)}
+.label{display:inline-block;padding:8px 12px;border-radius:10px;font-weight:800}
+
+/* Números */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(10,1fr);
+  gap:12px;
+  margin-top:10px;
+}
+.num{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:12px 6px;
+  text-align:center;
+  font-weight:800;
+  cursor:pointer;
+  box-shadow:0 2px 0 rgba(0,0,0,.04);
+  transition:transform .1s ease,background-color .12s,color .12s,border-color .12s;
+  font-size:clamp(14px,3.7vw,18px);
+  color:#4b0d25;
+}
+.num:hover{transform:translateY(-1px);border-color:var(--accent2)}
+.num:active{transform:scale(.97)}
+.num:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* Seleccionado */
+.num.sel{
+  background:var(--dark);
+  color:#fff !important;
+  border-color:var(--dark);
+  text-shadow:0 1px 0 rgba(0,0,0,.2);
+}
+
+/* Vendido */
+.num.sold{
+  background:var(--sold);
+  color:#9ca3af;
+  text-decoration:line-through;
+  cursor:not-allowed;
+  border-color:#e5e7eb;
+}
+
+/* Leyenda */
+.legend{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  color:var(--muted);
+  flex-wrap:wrap;
+  margin:.4rem 0 .9rem;
+}
+.chip{
+  width:14px;height:14px;border-radius:4px;
+  display:inline-block;background:#fff;border:1px solid var(--border)
+}
+.chip.sel{background:var(--sel);border-color:var(--accent)}
+.chip.sold{background:var(--sold)}
+
+/* Sumatoria */
+.sum{margin-top:8px;font-weight:800;color:#6b021b}
+
+/* Botones */
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.btn{
+  all:unset;
+  cursor:pointer;
+  padding:10px 14px;
+  border-radius:10px;
+  font-weight:800;
+  border:1px solid var(--border);
+  background:linear-gradient(180deg,#fdf2f8,#fce7f3);
+  color:var(--dark);
+  box-shadow:0 1px 0 rgba(0,0,0,.04);
+  text-align:center;
+  touch-action:manipulation;
+}
+.btn.secondary{background:#fff}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+
+/* Botón principal oscuro */
 #confirm.btn{
-  background:#831843;
+  background:var(--dark);
   color:#fff;
-  border-color:#831843;
+  border-color:var(--dark);
 }
 #confirm.btn:hover:not(:disabled){
   filter:brightness(.95);
@@ -92,71 +149,33 @@
   opacity:.9;
 }
 
-/* rótulos más oscuros */
-.label.dark{ color:#831843; font-weight:800; }
-
-/* clicks más rápidos en móviles */
-.num,.btn{ touch-action: manipulation; }
-
-   /* ——— Parche iOS: no pintes toda la pantalla al tocar ——— */
-  .grid, .num, .card, body {
-    -webkit-tap-highlight-color: transparent;
-    user-select: none;
-    -webkit-user-select: none;
-  }
-
-  /* Botoncitos por defecto */
-  .num{
-    background: #fff;
-    color: #5b0f2a;           /* bordó solo en texto */
-    border: 1px solid #f1c7d3;
-    box-shadow: 0 1px 0 rgba(0,0,0,.03);
-    transition: transform .08s ease, background-color .12s ease, color .12s ease, border-color .12s ease;
-  }
-
-  .num:active { transform: scale(.98); }
-
-  /* ——— Seleccionado: fondo bordó y TEXTO BLANCO de verdad ——— */
-.grid .num.sel{
-  background:#7a1035 !important;
-  border-color:#7a1035 !important;
-  color:#fff !important;
-}
-.grid .num.sel *{
-  color:#fff !important;
-  -webkit-text-fill-color:#fff; /* Safari iOS */
-}
-.grid .num.sel{
-  text-shadow: 0 1px 0 rgba(0,0,0,.15); /* mejora contraste */
+/* Premio */
+.prize{
+  margin:.35rem 0 1rem;
+  font-weight:600;
+  color:var(--dark);
 }
 
-/* ——— Estado por defecto y vendido (por si algo lo pisa) ——— */
-.grid .num{
+/* QR y footer */
+.paygrid{display:grid;gap:6px;margin:10px 0 0}
+.paygrid b{display:block;color:var(--dark)}
+.qr{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:10px}
+.qr img{
+  width:160px;height:160px;
+  border-radius:12px;
+  border:1px solid var(--border);
   background:#fff;
-  color:#5b0f2a;
-}
-.grid .num.sold{
-  background:#f3f4f6;
-  color:#9ca3af;
-  border-color:#e5e7eb;
 }
 
-/* ——— Espacio entre “Premio” y los números ——— */
-/* si tu párrafo del premio tiene class="prize" */
-.prize{ 
-  margin: .35rem 0 .9rem;   /* agrega margen inferior */
-}
-/* y aseguramos un respiro arriba del grid */
-#grid{ 
-  margin-top: .6rem;
-}
-/* si tenés una fila de leyenda (Disponible/Seleccionado/Reservado) */
-.legend{ 
-  margin: .4rem 0 .9rem;
-}
+/* Responsive */
+@media (max-width:900px){.grid{grid-template-columns:repeat(8,1fr)}}
+@media (max-width:640px){.grid{grid-template-columns:repeat(6,1fr)}.num{padding:12px 4px}}
+@media (max-width:420px){.grid{grid-template-columns:repeat(5,1fr)}.num{padding:12px 2px;font-size:clamp(13px,4vw,17px)}}
 </style>
+
 </head>
 <body>
+        
 <div class="wrap">
 
   <!-- Encabezado -->
@@ -499,7 +518,28 @@ async function refreshState(){
     setStatus(false);
   }
 }
-
+(function(){
+  const VERSION = 'v3.4'; // ← cambiá este número cuando actualices
+  document.querySelectorAll('link[rel="stylesheet"], script[src]').forEach(el=>{
+    const attr = el.tagName === 'LINK' ? 'href' : 'src';
+    const old = el.getAttribute(attr);
+    if(!old || old.includes('data:')) return;
+    const clean = old.split('?')[0];
+    el.setAttribute(attr, `${clean}?${VERSION}`);
+  });
+  if (window.fetch){
+    const origFetch = window.fetch;
+    window.fetch = (url,opts={})=>{
+      if(typeof url === 'string' && !url.includes('data:')){
+        const u = new URL(url, location.origin);
+        u.searchParams.set('v', VERSION);
+        url = u.toString();
+      }
+      opts.cache = 'no-store';
+      return origFetch(url, opts);
+    };
+  }
+})();
 /* ========= Inicio ========= */
 renderGridBase();
 refreshState();
