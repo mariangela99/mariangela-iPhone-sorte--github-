@@ -7,211 +7,70 @@
 <title>🎟️ Rifa Solidaria – SORTEO iPhone 13 Pro Max 256 GB🎟️</title>
 
 <link rel="icon" type="image/svg+xml"
-        href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><text y="50%" x="50%" dominant-baseline="middle" text-anchor="middle" font-size="50">🐾</text></svg>'>
+  href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><text y="50%" x="50%" dominant-baseline="middle" text-anchor="middle" font-size="50">🐾</text></svg>'>
 
-  
 <style>
 :root{
   --bg1:#fff1f2; --bg2:#ffe4e6; --card:#fff7fb; --border:#fbcfe8;
   --text:#3f0a1a; --muted:#9f1239; --accent:#ec4899; --accent2:#f472b6;
   --chip:#ffe4e6; --sold:#f5e7ee; --dark:#831843;
 }
-
 /* Base */
 *{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-  background:linear-gradient(120deg,var(--bg1),var(--bg2));
-  color:var(--text);
-  -webkit-tap-highlight-color:transparent;
-  user-select:none;
-  -webkit-user-select:none;
-}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:linear-gradient(120deg,var(--bg1),var(--bg2));color:var(--text);-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
 .wrap{max-width:1100px;margin:28px auto;padding:16px}
-.card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:18px;
-  box-shadow:0 10px 30px rgba(190,24,93,.10)
-}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;box-shadow:0 10px 30px rgba(190,24,93,.10)}
 .hero{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
 h1{margin:0 0 6px;font-size:clamp(1.6rem,3.2vw,2.2rem)}
 .sub{color:var(--muted);font-weight:600}
-
 /* Precios */
-.pills span{
-  display:inline-block;
-  border:1px solid var(--border);
-  color:var(--accent);
-  background:var(--chip);
-  border-radius:999px;
-  padding:6px 12px;
-  margin-right:8px;
-  font-weight:800
-}
-
+.pills span{display:inline-block;border:1px solid var(--border);color:var(--accent);background:var(--chip);border-radius:999px;padding:6px 12px;margin-right:8px;font-weight:800}
 /* Números */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(10,1fr);
-  gap:12px;
-  margin-top:10px;
-}
-.num{
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:12px 6px;
-  text-align:center;
-  font-weight:800;
-  cursor:pointer;
-  box-shadow:0 2px 0 rgba(0,0,0,.04);
-  transition:transform .1s ease,background-color .12s,color .12s,border-color .12s;
-  font-size:clamp(14px,3.7vw,18px);
-  color:#4b0d25;
-}
+.grid{display:grid;grid-template-columns:repeat(10,1fr);gap:12px;margin-top:10px}
+.num{background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px 6px;text-align:center;font-weight:800;cursor:pointer;box-shadow:0 2px 0 rgba(0,0,0,.04);transition:transform .1s ease,background-color .12s,color .12s,border-color .12s;font-size:clamp(14px,3.7vw,18px);color:#4b0d25}
 .num:hover{transform:translateY(-1px);border-color:var(--accent2)}
 .num:active{transform:scale(.97)}
 .num:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-
 /* Seleccionado */
-.num.sel{
-  background:var(--dark);
-  color:#fff !important;
-  border-color:var(--dark);
-  text-shadow:0 1px 0 rgba(0,0,0,.2);
-}
-
+.num.sel{background:var(--dark);color:#fff !important;border-color:var(--dark);text-shadow:0 1px 0 rgba(0,0,0,.2)}
 /* Vendido */
-.num.sold{
-  background:var(--sold);
-  color:#9ca3af;
-  text-decoration:line-through;
-  cursor:not-allowed;
-  border-color:#e5e7eb;
-}
-
-.chip{
-  width:14px;height:14px;border-radius:4px;
-  display:inline-block;background:#fff;border:1px solid var(--border)
-}
-.chip.sel{background:var(--sel);border-color:var(--accent)}
+.num.sold{background:var(--sold);color:#9ca3af;text-decoration:line-through;cursor:not-allowed;border-color:#e5e7eb}
+/* Leyenda */
+.legend{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin:1rem 0 .8rem;font-weight:700;color:var(--text)}
+.legend-title{background:var(--dark);color:#fff;border-radius:8px;padding:6px 14px;font-weight:700;box-shadow:0 2px 4px rgba(0,0,0,.08)}
+.chip{width:14px;height:14px;border-radius:4px;display:inline-block;background:#fff;border:1px solid var(--border)}
+.chip.sel{background:var(--dark);border-color:var(--dark)}
 .chip.sold{background:var(--sold)}
-
 /* Sumatoria */
 .sum{margin-top:8px;font-weight:800;color:#6b021b}
-
 /* Botones */
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
-.btn{
-  all:unset;
-  cursor:pointer;
-  padding:10px 14px;
-  border-radius:10px;
-  font-weight:800;
-  border:1px solid var(--border);
-  background:linear-gradient(180deg,#fdf2f8,#fce7f3);
-  color:var(--dark);
-  box-shadow:0 1px 0 rgba(0,0,0,.04);
-  text-align:center;
-  touch-action:manipulation;
-}
+.btn{all:unset;cursor:pointer;padding:10px 14px;border-radius:10px;font-weight:800;border:1px solid var(--border);background:linear-gradient(180deg,#fdf2f8,#fce7f3);color:var(--dark);box-shadow:0 1px 0 rgba(0,0,0,.04);text-align:center;touch-action:manipulation}
 .btn.secondary{background:#fff}
 .btn:disabled{opacity:.45;cursor:not-allowed}
-
 /* Botón principal oscuro */
-#confirm.btn{
-  background:var(--dark);
-  color:#fff;
-  border-color:var(--dark);
-}
-#confirm.btn:hover:not(:disabled){
-  filter:brightness(.95);
-  transform:translateY(-1px);
-}
-#confirm.btn:disabled{
-  background:#f3e1ea;
-  color:#8b5a6a;
-  border-color:#f3e1ea;
-  opacity:.9;
-}
-
+#confirm.btn{background:var(--dark);color:#fff;border-color:var(--dark)}
+#confirm.btn:hover:not(:disabled){filter:brightness(.95);transform:translateY(-1px)}
+#confirm.btn:disabled{background:#f3e1ea;color:#8b5a6a;border-color:#f3e1ea;opacity:.9}
 /* Premio */
-.prize{
-  margin:.35rem 0 1rem;
-  font-weight:600;
-  color:var(--dark);
-}
-
+.prize{margin:.35rem 0 1rem;font-weight:600;color:var(--dark)}
 /* QR y footer */
 .paygrid{display:grid;gap:6px;margin:10px 0 0}
 .paygrid b{display:block;color:var(--dark)}
 .qr{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:10px}
-.qr img{
-  width:160px;height:160px;
-  border-radius:12px;
-  border:1px solid var(--border);
-  background:#fff;
-}
-
+.qr img{width:160px;height:160px;border-radius:12px;border:1px solid var(--border);background:#fff}
+/* Estado conexión */
+.status{font-size:.9rem;font-weight:600;margin-top:4px}
+.status.ok{color:#047857}
+.status.error{color:#b91c1c}
 /* Responsive */
 @media (max-width:900px){.grid{grid-template-columns:repeat(8,1fr)}}
 @media (max-width:640px){.grid{grid-template-columns:repeat(6,1fr)}.num{padding:12px 4px}}
 @media (max-width:420px){.grid{grid-template-columns:repeat(5,1fr)}.num{padding:12px 2px;font-size:clamp(13px,4vw,17px)}}
-
-
-/* === BLOQUE "Selección de números" === */
-.legend {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin: 1rem 0 .8rem;
-  font-weight: 700;
-  color: var(--text);
-}
-
-.legend-title {
-  background: var(--dark);
-  color: #fff;
-  border-radius: 8px;
-  padding: 6px 14px;
-  font-weight: 700;
-  box-shadow: 0 2px 4px rgba(0,0,0,.08);
-}
-
-/* Cuadraditos de estado */
-.chip {
-  width: 14px;
-  height: 14px;
-  border-radius: 4px;
-  display: inline-block;
-  background: #fff;
-  border: 1px solid var(--border);
-}
-.chip.sel { background: var(--dark); border-color: var(--dark); }
-.chip.sold { background: var(--sold); }
-
-/* Texto de estado de conexión */
-.status {
-  font-size: .9rem;
-  font-weight: 600;
-  margin-top: 4px;
-}
-.status.ok {
-  color: #047857; /* verde conectado */
-}
-.status.error {
-  color: #b91c1c; /* rojo si falla */
-}
-        
 </style>
-
 </head>
 <body>
-        
+
 <div class="wrap">
 
   <!-- Encabezado -->
@@ -225,20 +84,26 @@ h1{margin:0 0 6px;font-size:clamp(1.6rem,3.2vw,2.2rem)}
       <div id="st" class="status">Estado: conectando…</div>
     </div>
   </div>
- <ul class="prizes" style="margin:0 0 6px 16px; padding:0 0 0 4px">
-  <li>
-    <b>1.º Premio:</b>
-    <p class="prize">Premio: iPhone 13 Pro Max nuevo de 256&nbsp;GB. Color Blue Sierra</p>
-  </li>
-</ul>
-</div> <!-- cierra la card de “Premio” -->
 
+  <!-- Premio -->
+  <div class="card" style="margin-top:12px;">
+    <h3>🏆 Premio</h3>
+    <ul class="prizes" style="margin:0 0 6px 16px; padding:0 0 0 4px">
+      <li>
+        <b>1.º Premio:</b>
+        <p class="prize">Premio: iPhone 13 Pro Max nuevo de 256&nbsp;GB. Color Blue Sierra</p>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Selección de números -->
+  <div class="card" style="margin-top:12px;">
     <div class="legend">
-  <span class="legend-title">Selección de números</span>
-  <span><span class="chip"></span> Disponible</span>
-  <span><span class="chip sel"></span> Seleccionado</span>
-  <span><span class="chip sold"></span> Reservado/PAGO</span>
-</div>
+      <span class="legend-title">Selección de números</span>
+      <span><span class="chip"></span> Disponible</span>
+      <span><span class="chip sel"></span> Seleccionado</span>
+      <span><span class="chip sold"></span> Reservado/PAGO</span>
+    </div>
 
     <div id="grid" class="grid"></div>
     <div id="summary" class="sum">Seleccionados: —</div>
@@ -251,93 +116,78 @@ h1{margin:0 0 6px;font-size:clamp(1.6rem,3.2vw,2.2rem)}
 
   <!-- Bases -->
   <div class="card" style="margin-top:12px;">
-<h3>📝 Bases & Condiciones</h3>
-<ul class="prizes">
-  <li><b>Fecha de sorteo:</b> <b>28/11/2025</b>.</li>
-  <li><b>Modalidad de sorteo:</b> <b>Quiniela Nocturna de la Ciudad (CABA)</b> del día del sorteo.
-      Se toman las <b>últimas 3 cifras</b> del <b>1.º, 2.º y 3.º premio</b> para definir los <b>3 ganadores</b>.</li>
-<li><b>Rango de números:</b> del <b>001</b> al <b>200</b>. 3 números por persona</li>
-<li><b>Regla de asignación simple (siempre al 001–200):</b>
-    <ol>
-      <li>De cada posición del extracto (1.º, 2.º, 3.º) se toman las <b>últimas 3 cifras</b> (valor 000–999).</li>
-      <li>Si ese valor está entre <b>001 y 200</b>, ese es el número ganador.</li>
-      <li>Si está entre <b>201 y 999</b>, se lo trae al rango válido con una conversión automática (equivale a
-          “dar la vuelta” cada 200): <code>n = ((xxx - 1) % 200) + 1</code>.</li>
-      <li><b>Ejemplos rápidos:</b>
-        <div style="opacity:.9">
-          824 → 024 &nbsp;•&nbsp; 999 → 199 &nbsp;•&nbsp; 200 → 200 &nbsp;•&nbsp; 201 → 001 &nbsp;•&nbsp; 377 → 177
-        </div>
+    <h3>📝 Bases & Condiciones</h3>
+    <ul class="prizes">
+      <li><b>Fecha de sorteo:</b> <b>28/11/2025</b>.</li>
+      <li><b>Modalidad de sorteo:</b> <b>Quiniela Nocturna de la Ciudad (CABA)</b> del día del sorteo. Se toman las <b>últimas 3 cifras</b> del <b>1.º, 2.º y 3.º premio</b> para definir los <b>3 ganadores</b>.</li>
+      <li><b>Rango de números:</b> del <b>001</b> al <b>200</b>. 3 números por persona</li>
+      <li><b>Regla de asignación simple (siempre al 001–200):</b>
+        <ol>
+          <li>De cada posición del extracto (1.º, 2.º, 3.º) se toman las <b>últimas 3 cifras</b> (valor 000–999).</li>
+          <li>Si ese valor está entre <b>001 y 200</b>, ese es el número ganador.</li>
+          <li>Si está entre <b>201 y 999</b>, se lo trae al rango válido con una conversión automática (equivale a “dar la vuelta” cada 200): <code>n = ((xxx - 1) % 200) + 1</code>.</li>
+          <li><b>Ejemplos rápidos:</b> <span style="opacity:.9">824 → 024 • 999 → 199 • 200 → 200 • 201 → 001 • 377 → 177</span></li>
+          <li><b>Sin repetidos:</b> si un número ya resultó ganador, se usa la <b>siguiente posición</b> del extracto (4.º, 5.º, …) hasta completar los <b>3 ganadores únicos</b>.</li>
+        </ol>
       </li>
-      <li><b>Sin repetidos:</b> si un número ya resultó ganador, se usa la <b>siguiente posición</b> del extracto
-          (4.º, 5.º, …) hasta completar los <b>3 ganadores únicos</b>.</li>
-    </ol>
-  </li>
-  <li><b>Cómo participar:</b> elegís un número <b>disponible</b> en la página y escribís por WhatsApp para confirmar.
-      El/los número(s) quedan en estado <b>“Reservado”</b> hasta acreditar el <b>PAGO</b>.</li>
-  <li><b>Reservas:</b> la reserva automática dura <b>15 minutos</b>. Vencido ese plazo sin PAGO, los números vuelven a estar disponibles.</li>
-<li><b>Premios:</b> no son canjeables por dinero.</li>
-  <li><b>Transparencia:</b> el sorteo se realizará en base a los resultados oficiales de la
-      <a href="https://quiniela.loteriadelaciudad.gob.ar/" target="_blank" rel="noopener"><b>Quiniela Nocturna de la Ciudad de Buenos Aires</b></a>.
-      Se conservarán capturas del extracto oficial y del procedimiento de asignación. El cierre del sorteo y la publicación de ganadores se
-      realizará el mismo día del resultado oficial o dentro de las <b>24 h</b> posteriores.</li>
-  <li><b>Publicación y entrega:</b> se publican ganadores/as en Instagram y WhatsApp dentro de las <b>24 h</b>.
-      Para validar, se solicita comprobante de pago y datos del/los número(s).</li>
-  <li><b>Entrega:</b> en mano en <i>Palmas del Pilar, Tortugas Open Mall, Unicenter Shopping, El Solar Shopping, Alto Palermo Shopping</i>,
-      o envío a cargo del/la ganador/a (a coordinar).</li>
- <li><b>Plazo para reclamar:</b> <b>10 días corridos</b> desde la publicación. Pasado ese plazo, el premio se considera <b>desierto</b>.</li>
-  <li><b>Devoluciones:</b> no aplican una vez acreditado el pago.</li>
-</ul>
+      <li><b>Cómo participar:</b> elegís un número <b>disponible</b> en la página y escribís por WhatsApp para confirmar. El/los número(s) quedan en estado <b>“Reservado”</b> hasta acreditar el <b>PAGO</b>.</li>
+      <li><b>Reservas:</b> la reserva automática dura <b>15 minutos</b>. Vencido ese plazo sin PAGO, los números vuelven a estar disponibles.</li>
+      <li><b>Premios:</b> no son canjeables por dinero.</li>
+      <li><b>Transparencia:</b> se realiza en base a <a href="https://quiniela.loteriadelaciudad.gob.ar/" target="_blank" rel="noopener"><b>la Quiniela Nocturna de la Ciudad de Buenos Aires</b></a>. Publicación de ganadores en <b>24 h</b>.</li>
+      <li><b>Entrega:</b> en mano (Palmas del Pilar, TOM, Unicenter, El Solar, Alto Palermo) o envío a cargo del/la ganador/a.</li>
+      <li><b>Plazo para reclamar:</b> <b>10 días corridos</b> desde la publicación.</li>
+      <li><b>Devoluciones:</b> no aplican una vez acreditado el pago.</li>
+    </ul>
   </div>
 
   <!-- Contacto & Pago -->
   <div class="card" style="margin-top:12px;">
     <h3>📲 Contacto & Medios de pago</h3>
-
     <div class="paygrid">
       <div><b>Instagram</b> <a href="https://instagram.com/mariangelaramirezz" target="_blank" rel="noopener">@mariangelaramirezz</a></div>
       <div><b>Medio de pago único</b> Transferencia</div>
       <div><b>Cuenta</b> de Mercado Pago</div>
       <div><b>Titular</b> Francesca Lisanti</div>
-     <div><b>CVU</b> 0000003100061623575458</div>
+      <div><b>CVU</b> 0000003100061623575458</div>
       <div><b>Alias</b> cukirescatados</div>
-     
     </div>
-
     <div class="qr">
-    <img id="qr-wa" src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Fwa.me%2F5491172361533" alt="QR WhatsApp">
-<a id="btn-wa" class="btn" href="https://wa.me/5491172361533" target="_blank" rel="noopener">Abrir WhatsApp</a>
-
+      <img id="qr-wa" src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Fwa.me%2F5491172361533" alt="QR WhatsApp">
+      <a id="btn-wa" class="btn" href="https://wa.me/5491172361533" target="_blank" rel="noopener">Abrir WhatsApp</a>
     </div>
   </div>
 
-</div>
-<!-- Aviso legal (siempre al final) -->
-<div class="legal">
-  Aviso legal: esta promoción no está patrocinada, avalada ni administrada por Meta, Instagram o WhatsApp,
-  ni asociada a ellos. La participación implica la aceptación total de estas bases.
-</div>
-  
+  <!-- Aviso legal -->
+  <div class="card" style="margin-top:12px;">
+    <div class="legal">
+      Aviso legal: esta promoción no está patrocinada, avalada ni administrada por Meta, Instagram o WhatsApp,
+      ni asociada a ellos. La participación implica la aceptación total de estas bases.
+    </div>
+  </div>
+
+</div><!-- /wrap -->
+
 <script>
 /* ========= CONFIG ========= */
-const API_BASE = "https://script.google.com/macros/s/AKfycbwSVIghpX-yAEAWpHu5H8s8hSWoHeu1l1tzzFv-QfzkRcDuLWlAgK_jzY0-ub3VTkMb/exec";
-const WHATS      = "5491172361533";                 // número E.164 SIN + ni 0
-const MAX_N      = 200;                              // cantidad de números
-const MAX_SELECT = 3;                                // tope de selección
-const PRICES     = {1:10000, 2:18000, 3:26000};      // 1, 2 o 3 números
+const API_BASE   = "https://script.google.com/macros/s/AKfycbwSVIghpX-yAEAWpHu5H8s8hSWoHeu1l1tzzFv-QfzkRcDuLWlAgK_jzY0-ub3VTkMb/exec";
+const WHATS      = "5491172361533";
+const MAX_N      = 200;
+const MAX_SELECT = 3;
+const PRICES     = {1:10000, 2:18000, 3:26000};
 const ALIAS      = "cukirescatados";
 const CVU        = "0000003100061623575458";
 
 /* ========= Elementos ========= */
-const grid      = document.getElementById('grid');
-const summary   = document.getElementById('summary');
-const btnConfirm= document.getElementById('confirm');
-const btnClear  = document.getElementById('clear');
-const st        = document.getElementById('st');
-const btnWa     = document.getElementById('btn-wa');
-const imgQr     = document.getElementById('qr-wa');
+const grid       = document.getElementById('grid');
+const summary    = document.getElementById('summary');
+const btnConfirm = document.getElementById('confirm');
+const btnClear   = document.getElementById('clear');
+const st         = document.getElementById('st');
+const btnWa      = document.getElementById('btn-wa');
+const imgQr      = document.getElementById('qr-wa');
 
 /* ========= Estado ========= */
-const inflight = new Set(); // números con request en curso
+const inflight = new Set();
 let selected   = new Set();
 let taken      = new Set();
 
@@ -345,78 +195,60 @@ let taken      = new Set();
 const clientId = (() => {
   const k = 'raffleClientId';
   let v = localStorage.getItem(k);
-  if (!v) {
-    v = (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random());
-    localStorage.setItem(k, v);
-  }
+  if (!v) { v = (crypto.randomUUID ? crypto.randomUUID() : String(Date.now())+Math.random()); localStorage.setItem(k,v); }
   return v;
 })();
-
-const fmt   = n => n.toString().padStart(3, '0');
+const fmt   = n => n.toString().padStart(3,'0');
 const pesos = n => n.toLocaleString('es-AR');
 
 function bestPrice(k){
   const tiers = Object.keys(PRICES).map(Number).sort((a,b)=>a-b);
   const dp = Array(k+1).fill(Infinity); dp[0]=0;
-  for (let i=1;i<=k;i++){
-    for (const t of tiers){
-      if (t<=i) dp[i] = Math.min(dp[i], dp[i-t] + PRICES[t]);
-    }
-  }
-  return dp[k] || 0;
+  for(let i=1;i<=k;i++) for(const t of tiers) if(t<=i) dp[i]=Math.min(dp[i],dp[i-t]+PRICES[t]);
+  return dp[k]||0;
 }
 
 /* ========= Render base ========= */
 function renderGridBase(){
   const frag = document.createDocumentFragment();
-  for (let i=1;i<=MAX_N;i++){
+  for(let i=1;i<=MAX_N;i++){
     const d = document.createElement('div');
     d.className = 'num';
     d.textContent = fmt(i);
     d.dataset.n = String(i);
     frag.appendChild(d);
   }
-  grid.innerHTML = '';
-  grid.appendChild(frag);
+  grid.innerHTML=''; grid.appendChild(frag);
 }
 
 /* ========= Estados visuales ========= */
 function applyTaken(){
-  for (let i=1;i<=MAX_N;i++){
+  for(let i=1;i<=MAX_N;i++){
     const el = grid.children[i-1];
-    if (!el) continue;
-    if (taken.has(i)){
-      el.classList.add('sold');
-    } else {
-      el.classList.remove('sold');
-    }
+    if(!el) continue;
+    if(taken.has(i)) el.classList.add('sold'); else el.classList.remove('sold');
   }
 }
-
 function repaintSelections(){
   document.querySelectorAll('.num.sel').forEach(el=>el.classList.remove('sel'));
-  for (const n of selected){
+  for(const n of selected){
     const el = grid.children[n-1];
-    if (el && !el.classList.contains('sold')) el.classList.add('sel');
+    if(el && !el.classList.contains('sold')) el.classList.add('sel');
   }
 }
-
 function updateSummary(){
-  const arr = [...selected].sort((a,b)=>a-b).map(fmt);
-  const k = arr.length;
-  const total = bestPrice(k);
-  summary.textContent = k
-    ? `Seleccionados: ${arr.join(', ')} • Total a pagar: $${pesos(total)}`
-    : 'Seleccionados: —';
+  const arr=[...selected].sort((a,b)=>a-b).map(fmt);
+  const k=arr.length, total=bestPrice(k);
+  summary.textContent = k?`Seleccionados: ${arr.join(', ')} • Total a pagar: $${pesos(total)}`:'Seleccionados: —';
   btnConfirm.disabled = (k===0);
-  updateWhatsAppTargets();   // sincroniza botón y QR
+  updateWhatsAppTargets();
 }
 
 /* ========= WhatsApp ========= */
 function buildWaMessage(){
-  const arr = [...selected].sort((a,b)=>a-b).map(fmt);
-  const total = bestPrice(arr.length);
-  const msg = `Hola Cuki Rescatados, quiero participar con el/los número(s): ${arr.join(', ')}.
+  const arr=[...selected].sort((a,b)=>a-b).map(fmt);
+  const total=bestPrice(arr.length);
+  const msg=`Hola Cuki Rescatados, quiero participar con el/los número(s): ${arr.join(', ')}.
 Total a pagar: $${pesos(total)}.
 
 Alias: ${ALIAS}
@@ -426,78 +258,45 @@ Consulto bases y resultados en: https://www.loteria.gba.gov.ar/
 Envío comprobante ahora.`;
   return `https://wa.me/${WHATS}?text=${encodeURIComponent(msg)}`;
 }
-
 function updateWhatsAppTargets(){
-  const waUrl = buildWaMessage();
-  if (btnWa) btnWa.href = waUrl;
-  if (imgQr) {
-    const qrApi = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(waUrl)}`;
-    if (imgQr.src !== qrApi) imgQr.src = qrApi;
+  const waUrl=buildWaMessage();
+  if(btnWa) btnWa.href=waUrl;
+  if(imgQr){
+    const qr=`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(waUrl)}`;
+    if(imgQr.src!==qr) imgQr.src=qr;
   }
 }
 
 /* ========= API ========= */
 async function apiGet(params){
-  const q = new URLSearchParams(params).toString();
-  const url = API_BASE + (API_BASE.includes('?') ? '&' : '?') + q;
-
-  const ctrl = new AbortController();
-  const t = setTimeout(()=>ctrl.abort('timeout'), 6000);
-
-  const r = await fetch(url, {cache:'no-store', signal: ctrl.signal});
-  clearTimeout(t);
-  if (!r.ok) throw new Error('GET '+r.status);
-  return r.json();
+  const q=new URLSearchParams(params).toString();
+  const url=API_BASE+(API_BASE.includes('?')?'&':'?')+q;
+  const ctrl=new AbortController(); const t=setTimeout(()=>ctrl.abort('timeout'),6000);
+  const r=await fetch(url,{cache:'no-store',signal:ctrl.signal}); clearTimeout(t);
+  if(!r.ok) throw new Error('GET '+r.status); return r.json();
 }
-
 async function apiPost(params){
-  const r = await fetch(API_BASE, {
-    method: 'POST',
-    headers: {'Content-Type':'application/x-www-form-urlencoded'},
-    body: new URLSearchParams(params)
-  });
-  if (!r.ok) throw new Error('POST '+r.status);
-  return r.json();
+  const r=await fetch(API_BASE,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(params)});
+  if(!r.ok) throw new Error('POST '+r.status); return r.json();
 }
 
 /* ========= Interacción ========= */
 grid.addEventListener('pointerdown', ev=>{
-  const el = ev.target.closest('.num');
-  if (!el || !grid.contains(el)) return;
-  const n = Number(el.dataset.n);
-  if (!Number.isInteger(n) || inflight.has(n) || el.classList.contains('sold')) return;
+  const el=ev.target.closest('.num'); if(!el||!grid.contains(el)) return;
+  const n=Number(el.dataset.n); if(!Number.isInteger(n)||inflight.has(n)||el.classList.contains('sold')) return;
 
-  // quitar
-  if (selected.has(n)){
-    selected.delete(n);
-    el.classList.remove('sel');
-    updateSummary();
-    inflight.add(n);
-    apiPost({action:'release', clientId, ns:String(n)}).finally(()=>inflight.delete(n));
-    return;
+  if(selected.has(n)){ // quitar
+    selected.delete(n); el.classList.remove('sel'); updateSummary();
+    inflight.add(n); apiPost({action:'release',clientId,ns:String(n)}).finally(()=>inflight.delete(n)); return;
   }
+  if(selected.size>=MAX_SELECT){ summary?.animate([{transform:'none'},{transform:'scale(1.02)'},{transform:'none'}],{duration:250}); return; }
 
-  // límite
-  if (selected.size >= MAX_SELECT){
-    summary?.animate([{transform:'none'},{transform:'scale(1.02)'},{transform:'none'}], {duration:250});
-    return;
-  }
-
-  // seleccionar optimista
-  selected.add(n);
-  el.classList.add('sel');
-  updateSummary();
-
+  selected.add(n); el.classList.add('sel'); updateSummary();
   inflight.add(n);
-  apiPost({action:'hold', clientId, ns:String(n)})
+  apiPost({action:'hold',clientId,ns:String(n)})
     .then(res=>{
-      if (!(res.ok && res.ok.includes(n))){
-        selected.delete(n);
-        el.classList.remove('sel');
-        taken.add(n);
-        el.classList.add('sold');
-        updateSummary();
-        setStatus(true);
+      if(!(res.ok && res.ok.includes(n))){
+        selected.delete(n); el.classList.remove('sel'); taken.add(n); el.classList.add('sold'); updateSummary(); setStatus(true);
       }
     })
     .catch(()=>{})
@@ -505,88 +304,63 @@ grid.addEventListener('pointerdown', ev=>{
 });
 
 btnConfirm.addEventListener('click', async ()=>{
-  if (selected.size===0) return;
-  const ns = [...selected].join(',');
-  const link = buildWaMessage();
-
-  btnConfirm.disabled = true;
-  st.textContent = 'Confirmando…';
-
-  const fallback = setTimeout(()=>{ window.location.href = link; }, 1200);
+  if(selected.size===0) return;
+  const ns=[...selected].join(','); const link=buildWaMessage();
+  btnConfirm.disabled=true; st.textContent='Confirmando…';
+  const fallback=setTimeout(()=>{window.location.href=link;},1200);
   try{
-    const res = await apiPost({action:'finalize', clientId, ns});
-    clearTimeout(fallback);
-    if (res.lost && res.lost.length){
-      for (const n of res.lost){ taken.add(Number(n)); selected.delete(Number(n)); }
+    const res=await apiPost({action:'finalize',clientId,ns}); clearTimeout(fallback);
+    if(res.lost && res.lost.length){
+      for(const n of res.lost){ taken.add(Number(n)); selected.delete(Number(n)); }
       applyTaken(); repaintSelections(); updateSummary();
-      st.textContent = 'Algunos números se agotaron. Elegí otros.';
-      btnConfirm.disabled = false;
-      return;
+      st.textContent='Algunos números se agotaron. Elegí otros.'; btnConfirm.disabled=false; return;
     }
-    window.location.href = link;
-  }catch(e){
-    window.location.href = link;
-  }
+    window.location.href=link;
+  }catch(e){ window.location.href=link; }
 });
 
 btnClear.addEventListener('click', async ()=>{
-  const ns = [...selected].join(',');
-  selected.clear(); repaintSelections(); updateSummary();
-  if (ns){ try{ await apiPost({action:'release', clientId, ns}); }catch(_){ } }
+  const ns=[...selected].join(','); selected.clear(); repaintSelections(); updateSummary();
+  if(ns){ try{ await apiPost({action:'release',clientId,ns}); }catch(_){ } }
 });
 
+/* ========= Estado ========= */
 function setStatus(ok){
-  const stEl = document.getElementById('st');
-  if (!stEl) return;
-  if (ok){
-    stEl.textContent = 'Estado: conectado ✓';
-    stEl.className = 'status ok';
-  } else {
-    stEl.textContent = 'Estado: sin conexión';
-    stEl.className = 'status error';
-  }
+  const stEl=document.getElementById('st'); if(!stEl) return;
+  if(ok){ stEl.textContent='Estado: conectado ✓'; stEl.className='status ok'; }
+  else  { stEl.textContent='Estado: sin conexión'; stEl.className='status error'; }
 }
 
+/* ========= Refresco ========= */
 async function refreshState(){
   try{
-    const res = await apiGet({action:'state'});
-    taken = new Set([...(res.sold||[]), ...(res.reserved||[])]);
-    applyTaken(); repaintSelections(); updateSummary();
-    setStatus(true);
-  }catch(e){
-    setStatus(false);
-  }
+    const res=await apiGet({action:'state'});
+    taken=new Set([...(res.sold||[]),...(res.reserved||[])]); applyTaken(); repaintSelections(); updateSummary(); setStatus(true);
+  }catch(e){ setStatus(false); }
 }
 
-/* --- cache-buster manual --- */
+/* --- cache-buster manual (CERRADO CORRECTAMENTE) --- */
 (function(){
-  const VERSION = 'v3.9'; // ← cambiá este número cuando actualices
-  document.querySelectorAll('link[rel="stylesheet"], script[src]').forEach(el=>{
-    const attr = el.tagName === 'LINK' ? 'href' : 'src';
-    const old = el.getAttribute(attr);
-    if(!old || old.includes('data:')) return;
-    const clean = old.split('?')[0];
-    el.setAttribute(attr, `${clean}?${VERSION}`);
+  const VERSION='v3.10';
+  document.querySelectorAll('link[rel="stylesheet"],script[src]').forEach(el=>{
+    const attr=el.tagName==='LINK'?'href':'src';
+    const old=el.getAttribute(attr); if(!old||old.includes('data:')) return;
+    const clean=old.split('?')[0]; el.setAttribute(attr,`${clean}?${VERSION}`);
   });
-
-  // fuerza a que todos los fetch usen la misma versión
-  if (window.fetch){
-    const origFetch = window.fetch;
-    window.fetch = (url,opts={})=>{
-      if(typeof url === 'string' && !url.includes('data:')){
-        const u = new URL(url, location.origin);
-        u.searchParams.set('v', VERSION);
-        url = u.toString();
-      }
-      opts.cache = 'no-store';
-      return origFetch(url, opts);
+  if(window.fetch){
+    const origFetch=window.fetch;
+    window.fetch=(url,opts={})=>{
+      if(typeof url==='string' && !url.includes('data:')){ const u=new URL(url,location.origin); u.searchParams.set('v',VERSION); url=u.toString(); }
+      opts.cache='no-store'; return origFetch(url,opts);
     };
+  }
+})(); // ← cierre correcto
 
-renderGridBase();        // crea 001..200
-refreshState();          // pinta vendidos/reservados si la API responde
-setInterval(refreshState, 20000);
-updateWhatsAppTargets(); // sincroniza QR y botón
-
+/* Boot */
+renderGridBase();
+refreshState();
+setInterval(refreshState,20000);
+updateWhatsAppTargets();
 </script>
 </body>
 </html>
