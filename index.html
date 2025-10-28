@@ -320,7 +320,7 @@ h1{margin:0 0 6px;font-size:clamp(1.6rem,3.2vw,2.2rem)}
   
 <script>
 /* ========= CONFIG ========= */
-const API_BASE   = "https://script.google.com/macros/s/AKfycbxhKjWWKMYYTbSeGelWjGGQV8PtqNOIqD-gRC7ua7nAj_PFemKvx1Lq2EVNNl6-KN3g6A/exec";
+const API_BASE   = "https://script.google.com/macros/s/AKfycbwSVIghpX-yAEAWpHu5H8s8hSWoHeu1l1tzzFv-QfzkRcDuLWlAgK_jzY0-ub3VTkMb/exec";
 const WHATS      = "5491172361533";                 // número E.164 SIN + ni 0
 const MAX_N      = 200;                              // cantidad de números
 const MAX_SELECT = 3;                                // tope de selección
@@ -568,7 +568,7 @@ async function refreshState(){
 <script>
 /* --- cache-buster manual --- */
 (function(){
-  const VERSION = 'v3.7'; // ← cambiá este número cuando actualices
+  const VERSION = 'v3.8'; // ← cambiá este número cuando actualices
   document.querySelectorAll('link[rel="stylesheet"], script[src]').forEach(el=>{
     const attr = el.tagName === 'LINK' ? 'href' : 'src';
     const old = el.getAttribute(attr);
