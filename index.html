@@ -190,7 +190,7 @@ El cierre del sorteo y la publicación de ganadores se realizará el mismo día 
 
     /* ========= Cache-buster (solo agrega ?v= si no existe) ========= */
   (function () {
-    const v = 'v-1';
+    const v = 'v-2';
     if (!location.search.includes('v=')) {
       const u = new URL(location.href);
       u.searchParams.set('v', v);
@@ -423,4 +423,30 @@ Te envío el comprobante ahora.`;
   setInterval(refreshState, 15000);
 </script>
 </body>
+<!-- Contenedor (asegurate de tenerlo) -->
+<div id="grid" class="grid"></div>
+
+<!-- ==== PARCHE RÁPIDO PARA RENDERIZAR 200 NÚMEROS ==== -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const MAX_N = 200;                          // 👈 tu tope
+  const grid = document.getElementById('grid');
+  if (!grid) { console.error('Falta <div id="grid">'); return; }
+
+  const fmt = n => n.toString().padStart(3, '0');
+
+  // Render base (no depende del backend)
+  const frag = document.createDocumentFragment();
+  for (let i = 1; i <= MAX_N; i++) {
+    const d = document.createElement('button');
+    d.type = 'button';
+    d.className = 'num';
+    d.textContent = fmt(i);
+    frag.appendChild(d);
+  }
+  grid.replaceChildren(frag);
+});
+</script>
+
+  
 </html>
