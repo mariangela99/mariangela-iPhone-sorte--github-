@@ -28,7 +28,8 @@
 
   /* Números */
   .grid{display:grid;grid-template-columns:repeat(10,1fr);gap:12px;margin-top:10px}
-  .num{background:#fff;border:1px solid var(--border);border-radius:12px;
+  .num{
+       background:#fff;border:1px solid var(--border);border-radius:12px;
        padding:12px 6px;text-align:center;font-weight:800;cursor:pointer;user-select:none;
        box-shadow:0 2px 0 rgba(0,0,0,.04);transition:.12s ease;
        font-size:clamp(14px,3.7vw,18px);line-height:1;letter-spacing:.5px}
@@ -110,7 +111,8 @@
 
   <!-- Selección -->
   <div class="card" style="margin-top:12px;">
-    
+    <div class="card" style="margin-top:12px;">
+    <div class="label dark">Selección de números</div>
     <div class="legend" style="margin-top:10px">
       <span class="chip"></span> Disponible
       <span class="chip sel"></span> Seleccionado
@@ -128,32 +130,42 @@
 
   <!-- Bases -->
   <div class="card" style="margin-top:12px;">
-<h3>📝 Bases & Condiciones </h3>
-    <ul class="prizes">
-       <li><b>Fecha de sorteo:</b> <b>28/11/2025</b>.</li>
-      <li><b>Modalidad de sorteo:</b> <b>Quiniela Nocturna de la Ciudad (CABA)</b> del día del sorteo.
-      Se toman las <b>últimas 3 cifras</b> del 1.º al 3.º premio para definir los <b>3 ganadores</b>.</li>
-<li><b>Regla técnica de asignación (del 001 al 200):</b></li>
-      <ol>
-    <li>Si el número sorteado termina entre 201 y 999, se le restan 500 para llevarlo al rango válido.
-      <br><i>Ejemplo:</i> si sale <b>824</b>, se transforma en <b>324</b>; si sale <b>999</b>, se transforma en <b>499</b>.</li>
-        <li><b>Sin repetidos:</b> si un número ya resultó ganador, se usa la siguiente posición del extracto (4.º, 5.º, …) hasta completar 6 ganadores ÚNICOS.</li>
-      <li>Para que todos tengan las mismas chances, se usa la conversion automática.</li>
-      </ol>
-    </li>
-      <li><b>Cómo participar:</b> elegís un númerodisponible en la pagina y escribís por WhatsApp para confirmar.
-      El/los número(s) quedan en estado “Reservado” hasta acreditar el PAGO.</li>
-    <li><b>Reservas:</b> la reserva automática dura <b>15 minutos</b>. Vencido ese plazo sin PAGO, los números vuelven a estar disponibles.</li>
-    <li><b>Premio:</b> No son canjeables por dinero.</li>
-    <li><b>Transparencia:</b> El sorteo se realizará en base a los resultados oficiales de la 
-<a href="https://quiniela.loteriadelaciudad.gob.ar/" target="_blank" rel="noopener"><b>Quiniela Nocturna de la Ciudad de Buenos Aires</b></a>,
-garantizando total transparencia.
-Se conservarán capturas del extracto oficial publicado en la web de Lotería de la Ciudad, junto con el procedimiento de asignación de los números ganadores según las tres últimas cifras de los premios sorteados.  
-El cierre del sorteo y la publicación de ganadores se realizará el mismo día del resultado oficial o dentro de las 24 horas posteriores.</li>
-      <li><b>Publicación y entrega:</b> se publican ganadores/as en Instagram y WhatsApp dentro de las <b>24 h</b>. Para validar, se solicita comprobante de pago y datos del/los número(s).</li>
-     <li><b>Entrega:</b> en mano en <i>Palmas del Pilar, Tortugas Open Mall, Unicenter Shopping, El Solar Shopping, Alto Palermo Shopping</i> o envío a cargo del/la ganador/a (a coordinar).</li>
-    <li><b>Plazo para reclamar:</b> <b>10 días corridos</b> desde la publicación. Pasado ese plazo, el premio se considera <b>desierto</b>.</li>
-    <li><b>Devoluciones:</b> no aplican una vez acreditado el pago.</li>
+<h3>📝 Bases & Condiciones</h3>
+<ul class="prizes">
+  <li><b>Fecha de sorteo:</b> <b>28/11/2025</b>.</li>
+  <li><b>Modalidad de sorteo:</b> <b>Quiniela Nocturna de la Ciudad (CABA)</b> del día del sorteo.
+      Se toman las <b>últimas 3 cifras</b> del <b>1.º, 2.º y 3.º premio</b> para definir los <b>3 ganadores</b>.</li>
+<li><b>Rango de números:</b> del <b>001</b> al <b>200</b>.</li>
+<li><b>Regla de asignación simple (siempre al 001–200):</b>
+    <ol>
+      <li>De cada posición del extracto (1.º, 2.º, 3.º) se toman las <b>últimas 3 cifras</b> (valor 000–999).</li>
+      <li>Si ese valor está entre <b>001 y 200</b>, ese es el número ganador.</li>
+      <li>Si está entre <b>201 y 999</b>, se lo trae al rango válido con una conversión automática (equivale a
+          “dar la vuelta” cada 200): <code>n = ((xxx - 1) % 200) + 1</code>.</li>
+      <li><b>Ejemplos rápidos:</b>
+        <div style="opacity:.9">
+          824 → 024 &nbsp;•&nbsp; 999 → 199 &nbsp;•&nbsp; 200 → 200 &nbsp;•&nbsp; 201 → 001 &nbsp;•&nbsp; 377 → 177
+        </div>
+      </li>
+      <li><b>Sin repetidos:</b> si un número ya resultó ganador, se usa la <b>siguiente posición</b> del extracto
+          (4.º, 5.º, …) hasta completar los <b>3 ganadores únicos</b>.</li>
+    </ol>
+  </li>
+  <li><b>Cómo participar:</b> elegís un número <b>disponible</b> en la página y escribís por WhatsApp para confirmar.
+      El/los número(s) quedan en estado <b>“Reservado”</b> hasta acreditar el <b>PAGO</b>.</li>
+  <li><b>Reservas:</b> la reserva automática dura <b>15 minutos</b>. Vencido ese plazo sin PAGO, los números vuelven a estar disponibles.</li>
+<li><b>Premios:</b> no son canjeables por dinero.</li>
+  <li><b>Transparencia:</b> el sorteo se realizará en base a los resultados oficiales de la
+      <a href="https://quiniela.loteriadelaciudad.gob.ar/" target="_blank" rel="noopener"><b>Quiniela Nocturna de la Ciudad de Buenos Aires</b></a>.
+      Se conservarán capturas del extracto oficial y del procedimiento de asignación. El cierre del sorteo y la publicación de ganadores se
+      realizará el mismo día del resultado oficial o dentro de las <b>24 h</b> posteriores.</li>
+  <li><b>Publicación y entrega:</b> se publican ganadores/as en Instagram y WhatsApp dentro de las <b>24 h</b>.
+      Para validar, se solicita comprobante de pago y datos del/los número(s).</li>
+  <li><b>Entrega:</b> en mano en <i>Palmas del Pilar, Tortugas Open Mall, Unicenter Shopping, El Solar Shopping, Alto Palermo Shopping</i>,
+      o envío a cargo del/la ganador/a (a coordinar).</li>
+ <li><b>Plazo para reclamar:</b> <b>10 días corridos</b> desde la publicación. Pasado ese plazo, el premio se considera <b>desierto</b>.</li>
+  <li><b>Devoluciones:</b> no aplican una vez acreditado el pago.</li>
+</ul>
   </div>
 
   <!-- Contacto & Pago -->
@@ -171,17 +183,22 @@ El cierre del sorteo y la publicación de ganadores se realizará el mismo día 
     </div>
 
     <div class="qr">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Fwa.me%2F5491133328404" alt="QR WhatsApp">
-      <a class="btn" href="https://wa.me/5491133328404" target="_blank" rel="noopener">Abrir WhatsApp</a>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Fwa.me%2F5491172361533" alt="QR WhatsApp">
+      <a class="btn" href="https://wa.me/5491172361533" target="_blank" rel="noopener">Abrir WhatsApp</a>
     </div>
   </div>
 
 </div>
-
+<!-- Aviso legal (siempre al final) -->
+<div class="legal">
+  Aviso legal: esta promoción no está patrocinada, avalada ni administrada por Meta, Instagram o WhatsApp,
+  ni asociada a ellos. La participación implica la aceptación total de estas bases.
+</div>
+  
 <script>
   /* ========= CONFIG ========= */
   const API_BASE = "https://script.google.com/macros/s/AKfycbxC0nDsK_2s4pKU2jLGFG9CklV_LwMV9IS0m9dZLVbYpYmWJ_3HtzLaKWb_6JoPo6jR8w/exec";
-  const WHATS    = "5491133328404";
+  const WHATS    = "5491172361533";
   const MAX_SELECT = 3;
   const inflight = new Set(); // números con petición en curso
   const PRICES   = {1:10000, 2:18000, 3:26000};
@@ -190,7 +207,7 @@ El cierre del sorteo y la publicación de ganadores se realizará el mismo día 
 
     /* ========= Cache-buster (solo agrega ?v= si no existe) ========= */
   (function () {
-    const v = 'v-2';
+    const v = 'v-3';
     if (!location.search.includes('v=')) {
       const u = new URL(location.href);
       u.searchParams.set('v', v);
@@ -224,21 +241,29 @@ El cierre del sorteo y la publicación de ganadores se realizará el mismo día 
     return dp[k];
   }
 
-  // Pintar grilla rápido primero
   function renderGridBase(){
   const frag = document.createDocumentFragment();
-  for (let i = 1; i <= 200; i++) {
+  for(let i=1;i<=MAX_N;i++){
     const d = document.createElement('div');
     d.className = 'num';
-    d.textContent = fmt(i);
-    // 👇 SIN "else": simplemente agregá el listener
-    d.addEventListener('click', () => handleToggle(i, d));
+    d.textContent = String(i).padStart(3,'0');
+    d.dataset.n = String(i);   // 👈 acá guardamos el número
     frag.appendChild(d);
   }
   grid.innerHTML = '';
   grid.appendChild(frag);
+}
+    
+// Un solo listener para todos los números (rápido en móviles)
+grid.addEventListener('pointerdown', (ev) => {
+  const el = ev.target.closest('.num');
+  if (!el || !grid.contains(el)) return;
+  const n = Number(el.dataset.n);
+  if (!Number.isInteger(n)) return;
+  handleToggle(n, el);
+}, {passive:true});
   }
-
+   
   function applyTaken(){
     for(let i=1;i<=200;i++){
       const el = grid.children[i-1];
@@ -272,7 +297,7 @@ El cierre del sorteo y la publicación de ganadores se realizará el mismo día 
 function handleToggle(n, el){
   if (inflight.has(n) || el.classList.contains('sold')) return;
 
-  // Quitar selección (optimista)
+  // des-seleccionar
   if (selected.has(n)){
     selected.delete(n);
     el.classList.remove('sel');
@@ -283,32 +308,33 @@ function handleToggle(n, el){
     return;
   }
 
-  // Límite de selección
+  // límite de selección
   if (selected.size >= MAX_SELECT){
-    pulse(summary);
+    summary?.animate(
+      [{transform:'none'},{transform:'scale(1.02)'},{transform:'none'}],
+      {duration:250}
+    );
     return;
   }
 
-  // Agregar selección (optimista)
+  // seleccionar optimista
   selected.add(n);
   el.classList.add('sel');
   updateSummary();
 
-  // Confirmar con la API en segundo plano
   inflight.add(n);
   apiPost({action:'hold', clientId, ns:String(n)})
     .then(res=>{
       if (!(res.ok && res.ok.includes(n))){
-        // Alguien lo tomó antes → revertimos y lo marcamos vendido
         selected.delete(n);
         el.classList.remove('sel');
         taken.add(n);
         el.classList.add('sold');
         updateSummary();
-        st.textContent = "Ese número se reservó recién. Elegí otro.";
+        setStatus(true); // el server respondió, hay conexión
       }
     })
-    .catch(()=>{ /* si falla red, el hold expira solo por TTL */ })
+    .catch(()=>{/* si falla, el hold expira por TTL en server */})
     .finally(()=>inflight.delete(n));
 }
 
@@ -320,12 +346,49 @@ function pulse(el){
   );
 }
 
-  async function apiGet(params){
-    const q = new URLSearchParams(params).toString();
-    const url = API_BASE + (API_BASE.includes('?') ? '&' : '?') + q;
-    const r = await fetch(url, {cache:'no-store'});
-    if(!r.ok) throw new Error('GET '+r.status);
-    return r.json();
+// util para estado visual
+function setStatus(ok) {
+  const s = document.getElementById('st');
+  if (!s) return;
+  if (ok) {
+    s.textContent = 'Estado: conectado ✓';
+    s.classList.remove('is-off');
+    s.classList.add('is-on');
+  } else {
+    s.textContent = 'Estado: sin conexión';
+    s.classList.remove('is-on');
+    s.classList.add('is-off');
+  }
+}
+
+// fetch con timeout (evita colgados)
+async function apiGet(params){
+  const q = new URLSearchParams(params).toString();
+  const url = API_BASE + (API_BASE.includes('?') ? '&' : '?') + q;
+
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort('timeout'), 6000);
+
+  const r = await fetch(url, {cache:'no-store', signal: ctrl.signal});
+  clearTimeout(t);
+  if(!r.ok) throw new Error('GET '+r.status);
+  return r.json();
+}
+
+async function refreshState(){
+  try{
+    const res = await apiGet({action:'state'});
+    taken = new Set([...(res.sold||[]), ...(res.reserved||[])]);
+    applyTaken(); repaintSelections(); updateSummary();
+    setStatus(true);
+  }catch(e){
+    setStatus(false);
+  }
+}
+
+// primer ping más rápido y luego cada 20s
+refreshState();
+setInterval(refreshState, 20000););
   }
   async function apiPost(params){
     const r = await fetch(API_BASE, {
@@ -423,30 +486,5 @@ Te envío el comprobante ahora.`;
   setInterval(refreshState, 15000);
 </script>
 </body>
-<!-- Contenedor (asegurate de tenerlo) -->
-<div id="grid" class="grid"></div>
 
-<!-- ==== PARCHE RÁPIDO PARA RENDERIZAR 200 NÚMEROS ==== -->
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const MAX_N = 200;                          // 👈 tu tope
-  const grid = document.getElementById('grid');
-  if (!grid) { console.error('Falta <div id="grid">'); return; }
-
-  const fmt = n => n.toString().padStart(3, '0');
-
-  // Render base (no depende del backend)
-  const frag = document.createDocumentFragment();
-  for (let i = 1; i <= MAX_N; i++) {
-    const d = document.createElement('button');
-    d.type = 'button';
-    d.className = 'num';
-    d.textContent = fmt(i);
-    frag.appendChild(d);
-  }
-  grid.replaceChildren(frag);
-});
-</script>
-
-  
-</html>
+  l>
