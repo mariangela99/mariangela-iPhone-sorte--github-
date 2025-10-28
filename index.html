@@ -161,62 +161,51 @@ h1{margin:0 0 6px;font-size:clamp(1.6rem,3.2vw,2.2rem)}
 @media (max-width:640px){.grid{grid-template-columns:repeat(6,1fr)}.num{padding:12px 4px}}
 @media (max-width:420px){.grid{grid-template-columns:repeat(5,1fr)}.num{padding:12px 2px;font-size:clamp(13px,4vw,17px)}}
 
-       /* ===== Ajustes visuales finales ===== */
 
-/* Título “Selección de números” */
+/* === BLOQUE "Selección de números" === */
 .legend {
-  display:flex;
-  gap:12px;
-  align-items:center;
-  flex-wrap:wrap;
-  margin:.6rem 0 1rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 1rem 0 .8rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.legend-title {
   background: var(--dark);
-  color:#fff;             /* texto blanco */
-  font-weight:700;
-  border-radius:8px;
-  padding:8px 12px;
-  box-shadow:0 2px 6px rgba(0,0,0,.1);
+  color: #fff;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-weight: 700;
+  box-shadow: 0 2px 4px rgba(0,0,0,.08);
 }
 
-/* Chips (cuadraditos de estado) */
+/* Cuadraditos de estado */
 .chip {
-  width:14px;
-  height:14px;
-  border-radius:4px;
-  display:inline-block;
-  background:#fff;
-  border:1px solid var(--border);
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  display: inline-block;
+  background: #fff;
+  border: 1px solid var(--border);
 }
-.chip.sel {background:var(--dark); border-color:var(--dark);}
-.chip.sold {background:#f3f4f6;}
+.chip.sel { background: var(--dark); border-color: var(--dark); }
+.chip.sold { background: var(--sold); }
 
-/* Botón principal bordó */
-#confirm.btn {
-  background:var(--dark);
-  color:#fff;
-  border-color:var(--dark);
-  font-weight:800;
-  transition: all .12s ease-in-out;
-}
-#confirm.btn:hover:not(:disabled){
-  filter:brightness(.9);
-  transform:translateY(-1px);
-}
-#confirm.btn:disabled {
-  background:#e9d5e9;
-  color:#7b4b61;
-  border-color:#e9d5e9;
-  opacity:.8;
-}
-
-/* Texto de estado (conectado / sin conexión) */
+/* Texto de estado de conexión */
 .status {
-  font-size:.9rem;
-  font-weight:600;
-  margin-top:4px;
+  font-size: .9rem;
+  font-weight: 600;
+  margin-top: 4px;
 }
-.status.ok { color: #047857; }        /* verde cuando conectado */
-.status.error { color: #b91c1c; }     /* rojo cuando sin conexión */ 
+.status.ok {
+  color: #047857; /* verde conectado */
+}
+.status.error {
+  color: #b91c1c; /* rojo si falla */
+}
         
 </style>
 
@@ -244,15 +233,14 @@ h1{margin:0 0 6px;font-size:clamp(1.6rem,3.2vw,2.2rem)}
       <li>
         <b>1.º Premio:</b>
         <p class="prize">Premio: iPhone 13 Pro Max nuevo de 256&nbsp;GB. Color Blue Sierra</p>
-  
-    <div class="card" style="margin-top:12px;">
-    <div class="label dark">Selección de números</div>
-      
-    <div class="legend" style="margin-top:10px">
-      <span class="chip"></span> Disponible
-      <span class="chip sel"></span> Seleccionado
-      <span class="chip sold"></span> Reservado/PAGO
-    </div>
+   </div>
+        
+    <div class="legend">
+  <span class="legend-title">Selección de números</span>
+  <span><span class="chip"></span> Disponible</span>
+  <span><span class="chip sel"></span> Seleccionado</span>
+  <span><span class="chip sold"></span> Reservado/PAGO</span>
+</div>
 
     <div id="grid" class="grid"></div>
     <div id="summary" class="sum">Seleccionados: —</div>
@@ -332,7 +320,7 @@ h1{margin:0 0 6px;font-size:clamp(1.6rem,3.2vw,2.2rem)}
   
 <script>
 /* ========= CONFIG ========= */
-const API_BASE   = "https://script.google.com/macros/s/AKfycbxC0nDsK_2s4pKU2jLGFG9CklV_LwMV9IS0m9dZLVbYpYmWJ_3HtzLaKWb_6JoPo6jR8w/exec";
+const API_BASE   = "https://script.google.com/macros/s/AKfycbxhKjWWKMYYTbSeGelWjGGQV8PtqNOIqD-gRC7ua7nAj_PFemKvx1Lq2EVNNl6-KN3g6A/exec";
 const WHATS      = "5491172361533";                 // número E.164 SIN + ni 0
 const MAX_N      = 200;                              // cantidad de números
 const MAX_SELECT = 3;                                // tope de selección
@@ -559,6 +547,7 @@ function setStatus(ok){
     st.className = 'status error';
   }
 }
+
 /* ========= Estado/refresh ========= */
 function setStatus(ok){
   if (!st) return;
@@ -576,8 +565,10 @@ async function refreshState(){
     setStatus(false);
   }
 }
+<script>
+/* --- cache-buster manual --- */
 (function(){
-  const VERSION = 'v3.5'; // ← cambiá este número cuando actualices
+  const VERSION = 'v3.7'; // ← cambiá este número cuando actualices
   document.querySelectorAll('link[rel="stylesheet"], script[src]').forEach(el=>{
     const attr = el.tagName === 'LINK' ? 'href' : 'src';
     const old = el.getAttribute(attr);
@@ -585,6 +576,8 @@ async function refreshState(){
     const clean = old.split('?')[0];
     el.setAttribute(attr, `${clean}?${VERSION}`);
   });
+
+  // fuerza a que todos los fetch usen la misma versión
   if (window.fetch){
     const origFetch = window.fetch;
     window.fetch = (url,opts={})=>{
@@ -596,6 +589,7 @@ async function refreshState(){
       opts.cache = 'no-store';
       return origFetch(url, opts);
     };
+
   }
 })();
 /* ========= Inicio ========= */
