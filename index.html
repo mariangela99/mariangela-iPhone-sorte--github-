@@ -51,8 +51,6 @@ h1{margin:0 0 6px;font-size:clamp(1.6rem,3.2vw,2.2rem)}
   margin-right:8px;
   font-weight:800
 }
-.status{font-size:.9rem;color:var(--muted)}
-.label{display:inline-block;padding:8px 12px;border-radius:10px;font-weight:800}
 
 /* Números */
 .grid{
@@ -95,15 +93,6 @@ h1{margin:0 0 6px;font-size:clamp(1.6rem,3.2vw,2.2rem)}
   border-color:#e5e7eb;
 }
 
-/* Leyenda */
-.legend{
-  display:flex;
-  gap:12px;
-  align-items:center;
-  color:var(--muted);
-  flex-wrap:wrap;
-  margin:.4rem 0 .9rem;
-}
 .chip{
   width:14px;height:14px;border-radius:4px;
   display:inline-block;background:#fff;border:1px solid var(--border)
@@ -171,6 +160,64 @@ h1{margin:0 0 6px;font-size:clamp(1.6rem,3.2vw,2.2rem)}
 @media (max-width:900px){.grid{grid-template-columns:repeat(8,1fr)}}
 @media (max-width:640px){.grid{grid-template-columns:repeat(6,1fr)}.num{padding:12px 4px}}
 @media (max-width:420px){.grid{grid-template-columns:repeat(5,1fr)}.num{padding:12px 2px;font-size:clamp(13px,4vw,17px)}}
+
+       /* ===== Ajustes visuales finales ===== */
+
+/* Título “Selección de números” */
+.legend {
+  display:flex;
+  gap:12px;
+  align-items:center;
+  flex-wrap:wrap;
+  margin:.6rem 0 1rem;
+  background: var(--dark);
+  color:#fff;             /* texto blanco */
+  font-weight:700;
+  border-radius:8px;
+  padding:8px 12px;
+  box-shadow:0 2px 6px rgba(0,0,0,.1);
+}
+
+/* Chips (cuadraditos de estado) */
+.chip {
+  width:14px;
+  height:14px;
+  border-radius:4px;
+  display:inline-block;
+  background:#fff;
+  border:1px solid var(--border);
+}
+.chip.sel {background:var(--dark); border-color:var(--dark);}
+.chip.sold {background:#f3f4f6;}
+
+/* Botón principal bordó */
+#confirm.btn {
+  background:var(--dark);
+  color:#fff;
+  border-color:var(--dark);
+  font-weight:800;
+  transition: all .12s ease-in-out;
+}
+#confirm.btn:hover:not(:disabled){
+  filter:brightness(.9);
+  transform:translateY(-1px);
+}
+#confirm.btn:disabled {
+  background:#e9d5e9;
+  color:#7b4b61;
+  border-color:#e9d5e9;
+  opacity:.8;
+}
+
+/* Texto de estado (conectado / sin conexión) */
+.status {
+  font-size:.9rem;
+  font-weight:600;
+  margin-top:4px;
+}
+.status.ok { color: #047857; }        /* verde cuando conectado */
+.status.error { color: #b91c1c; }     /* rojo cuando sin conexión */ 
+        
 </style>
 
 </head>
@@ -501,6 +548,17 @@ btnClear.addEventListener('click', async ()=>{
   if (ns){ try{ await apiPost({action:'release', clientId, ns}); }catch(_){ } }
 });
 
+function setStatus(ok){
+  const st = document.getElementById('st');
+  if (!st) return;
+  if (ok){
+    st.textContent = 'Estado: conectado ✓';
+    st.className = 'status ok';
+  } else {
+    st.textContent = 'Estado: sin conexión';
+    st.className = 'status error';
+  }
+}
 /* ========= Estado/refresh ========= */
 function setStatus(ok){
   if (!st) return;
@@ -519,7 +577,7 @@ async function refreshState(){
   }
 }
 (function(){
-  const VERSION = 'v3.4'; // ← cambiá este número cuando actualices
+  const VERSION = 'v3.5'; // ← cambiá este número cuando actualices
   document.querySelectorAll('link[rel="stylesheet"], script[src]').forEach(el=>{
     const attr = el.tagName === 'LINK' ? 'href' : 'src';
     const old = el.getAttribute(attr);
