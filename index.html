@@ -90,8 +90,7 @@ h1{margin:0 0 6px;font-size:clamp(1.6rem,3.2vw,2.2rem)}
     <h3>🏆 Premio</h3>
     <ul class="prizes" style="margin:0 0 6px 16px; padding:0 0 0 4px">
       <li>
-        <b>1.º Premio:</b>
-        <p class="prize">Premio: iPhone 13 Pro Max nuevo de 256&nbsp;GB. Color Blue Sierra</p>
+        <p class="prize">iPhone 13 Pro Max nuevo de 256&nbsp;GB. Color Blue Sierra</p>
       </li>
     </ul>
   </div>
@@ -158,7 +157,7 @@ h1{margin:0 0 6px;font-size:clamp(1.6rem,3.2vw,2.2rem)}
   </div>
 
   <!-- Aviso legal -->
-  <div class="card" style="margin-top:12px;">
+  <div class="card" style="margin-top:5px;">
     <div class="legal">
       Aviso legal: esta promoción no está patrocinada, avalada ni administrada por Meta, Instagram o WhatsApp,
       ni asociada a ellos. La participación implica la aceptación total de estas bases.
@@ -341,7 +340,7 @@ async function refreshState(){
 
 /* --- cache-buster manual (CERRADO CORRECTAMENTE) --- */
 (function(){
-  const VERSION='v3.10';
+  const VERSION='v3.11';
   document.querySelectorAll('link[rel="stylesheet"],script[src]').forEach(el=>{
     const attr=el.tagName==='LINK'?'href':'src';
     const old=el.getAttribute(attr); if(!old||old.includes('data:')) return;
