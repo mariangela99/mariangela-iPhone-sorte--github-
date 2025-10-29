@@ -267,6 +267,8 @@ function buildWaMessage(){
   const msg=`Hola Mar! quiero participar de la rifa con el/los número(s): ${arr.join(', ')}.
 Total a pagar: $${pesos(total)}.
 
+Cuenta de Mercado Pago
+Titular: Francesca Lisanti
 Alias: ${ALIAS}
 CVU: ${CVU}
 
@@ -364,7 +366,7 @@ async function refreshState(){
 
 /* --- cache-buster manual (CERRADO CORRECTAMENTE) --- */
 (function(){
-  const VERSION='v3.15';
+  const VERSION='v3.16';
   document.querySelectorAll('link[rel="stylesheet"],script[src]').forEach(el=>{
     const attr=el.tagName==='LINK'?'href':'src';
     const old=el.getAttribute(attr); if(!old||old.includes('data:')) return;
