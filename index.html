@@ -100,7 +100,7 @@ h1{margin:0 0 6px;font-size:clamp(1.6rem,3.2vw,2.2rem)}
     <h3>🏆 Premio</h3>
     <ul class="prizes" style="margin:0 0 6px 16px; padding:0 0 0 4px">
       <li>
-        <p class="prize">iPhone 13 Pro Max nuevo de 256&nbsp;GB. Color Blue Sierra</p>
+        <p class="prize">iPhone 13 Pro MAX <b>nuevo</b> de 256&nbsp;GB. Color Blue Sierra. Funda Blue y vidrio protector.</p>
       </li>
     </ul>
   </div>
@@ -356,7 +356,7 @@ async function refreshState(){
 
 /* --- cache-buster manual (cerrado correctamente) --- */
 (function(){
-  const VERSION='v3.18';
+  const VERSION='v3.19';
   document.querySelectorAll('link[rel="stylesheet"],script[src]').forEach(el=>{
     const attr=el.tagName==='LINK'?'href':'src';
     const old=el.getAttribute(attr); if(!old||old.includes('data:')) return;
