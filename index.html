@@ -134,7 +134,7 @@ h1{margin:0 0 6px;font-size:clamp(1.6rem,3.2vw,2.2rem)}
         <ol>
           <li>De cada posición del extracto (1.º, 2.º, 3.º) se toman las <b>últimas 3 cifras</b> (valor 000–999).</li>
           <li>Si ese valor está entre <b>001 y 200</b>, ese es el número ganador.</li>
-          <li>Si está entre <b>201 y 999</b>, se lo trae al rango válido con una conversión automática, para que todos tengan la misma chance (equivale a “dar la vuelta” cada 200): <code>n = ((xxx - 1) % 200) + 1</code>.</li>
+          <li>Si está entre <b>201 y 999</b>, se lo trae al rango válido con una conversión automática, para que todos tengan la misma chance (equivale a “dar la vuelta” cada 200): <code>n = ((xxx % 200)</code>.</li>
           <li><b>Ejemplos rápidos:</b> <span style="opacity:.9">824 → 024 • 999 → 199 • 200 → 200 • 201 → 001 • 377 → 177</span></li>
           <li><b>Sin repetidos:</b> si un número ya resultó ganador, se usa la <b>siguiente posición</b> del extracto (4.º, 5.º) hasta completar los <b>3 ganadores únicos</b>.</li>
         </ol>
@@ -168,7 +168,7 @@ h1{margin:0 0 6px;font-size:clamp(1.6rem,3.2vw,2.2rem)}
   </div>
 
   <!-- Aviso legal -->
-  <div class="card" style="margin-top:5px;">
+  <div class="card" style="margin-top:3px;">
     <div class="legal">
       Aviso legal: esta promoción no está patrocinada, avalada ni administrada por Meta, Instagram o WhatsApp,
       ni asociada a ellos. La participación implica la aceptación total de estas bases.
@@ -258,7 +258,7 @@ function updateSummary(){
 function buildWaMessage(){
   const arr=[...selected].sort((a,b)=>a-b).map(fmt);
   const total=bestPrice(arr.length);
-  const msg=`Hola Mar! quiero participar de la rifa con el/los número(s): ${arr.join(', ')}.
+  const msg= `Hola Mar! quiero participar de la rifa con el/los número(s): ${arr.join(', ')}.
 Total a pagar: $${pesos(total)}.
 
 Cuenta de Mercado Pago
@@ -356,7 +356,7 @@ async function refreshState(){
 
 /* --- cache-buster manual (cerrado correctamente) --- */
 (function(){
-  const VERSION='v3.17';
+  const VERSION='v3.18';
   document.querySelectorAll('link[rel="stylesheet"],script[src]').forEach(el=>{
     const attr=el.tagName==='LINK'?'href':'src';
     const old=el.getAttribute(attr); if(!old||old.includes('data:')) return;
