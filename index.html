@@ -356,7 +356,7 @@ async function refreshState(){
 
 /* --- cache-buster manual (cerrado correctamente) --- */
 (function(){
-  const VERSION='v3.19';
+  const VERSION='v3.20';
   document.querySelectorAll('link[rel="stylesheet"],script[src]').forEach(el=>{
     const attr=el.tagName==='LINK'?'href':'src';
     const old=el.getAttribute(attr); if(!old||old.includes('data:')) return;
