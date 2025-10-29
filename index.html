@@ -140,15 +140,16 @@ h1{margin:0 0 6px;font-size:clamp(1.6rem,3.2vw,2.2rem)}
         <ol>
           <li>De cada posición del extracto (1.º, 2.º, 3.º) se toman las <b>últimas 3 cifras</b> (valor 000–999).</li>
           <li>Si ese valor está entre <b>001 y 200</b>, ese es el número ganador.</li>
-          <li>Si está entre <b>201 y 999</b>, se lo trae al rango válido con una conversión automática, para que todos tengan la misma chance (equivale a “dar la vuelta” cada 200): code>n = ((<xxx % 200) </code>.</li>
+          <li>Si está entre <b>201 y 999</b>, se lo trae al rango válido con una conversión automática, para que todos tengan la misma chance (equivale a “dar la vuelta” cada 200): <code>n = ((<xxx % 200) </code>.</li>
           <li><b>Ejemplos rápidos:</b> <span style="opacity:.9">824 → 024 • 999 → 199 • 200 → 200 • 201 → 001 • 377 → 177</span></li>
-          <li><b>Sin repetidos:</b> si un número ya resultó ganador, se usa la <b>siguiente posición</b> del extracto (4.º, 5.º, …) hasta completar los <b>3 ganadores únicos</b>.</li>
+          <li><b>Sin repetidos:</b> si un número ya resultó ganador, se usa la <b>siguiente posición</b> del extracto (4.º, 5.º) hasta completar los <b>3 ganadores únicos</b>.</li>
         </ol>
       </li>
       <li><b>Cómo participar:</b> elegís un número <b>disponible</b> en la página y escribís por WhatsApp para confirmar. El/los número(s) quedan en estado <b>“Reservado”</b> hasta acreditar el <b>PAGO</b>.</li>
       <li><b>Reservas:</b> la reserva automática dura <b>15 minutos</b>. Vencido ese plazo sin PAGO, los números vuelven a estar disponibles.</li>
       <li><b>Premios:</b> no son canjeables por dinero.</li>
-      <li><b>Transparencia:</b> se realiza en base a <a href="https://quiniela.loteriadelaciudad.gob.ar/" target="_blank" rel="noopener"><b>la Quiniela Nocturna de la Ciudad de Buenos Aires</b></a>. Publicación de ganadores en <b>24 h</b>.</li>
+      <li><b>Transparencia:</b> se realiza en base a <a href="https://quiniela.loteriadelaciudad.gob.ar/" target="_blank" rel="noopener"><b>la Quiniela Nocturna de la Ciudad de Buenos Aires</b></a>.</li>
+      <li><b>Publicación:</b> se publican ganadores/as en Instagram y WhatsApp dentro de las <b>24 h</b>. Para validar, se solicita comprobante de PAGO y datos del/los número(s).</li>
       <li><b>Entrega:</b> en mano en <i>Palmas del Pilar, Tortugas Open Mall, Unicenter Shopping, El Solar Shopping, Alto Palermo Shopping</i> o envío a cargo del/la ganador/a (a coordinar).</li>
       <li><b>Plazo para reclamar:</b> <b>10 días corridos</b> desde la publicación.</li>
       <li><b>Devoluciones:</b> no aplican una vez acreditado el pago.</li>
@@ -269,8 +270,8 @@ Total a pagar: $${pesos(total)}.
 Alias: ${ALIAS}
 CVU: ${CVU}
 
-Envío comprobante ahora en breve!
-Muchas Gracias!`;
+Envío comprobante en breve,
+Muchas Gracias!!`;
   return `https://wa.me/${WHATS}?text=${encodeURIComponent(msg)}`;
 }
 function updateWhatsAppTargets(){
@@ -363,7 +364,7 @@ async function refreshState(){
 
 /* --- cache-buster manual (CERRADO CORRECTAMENTE) --- */
 (function(){
-  const VERSION='v3.14';
+  const VERSION='v3.15';
   document.querySelectorAll('link[rel="stylesheet"],script[src]').forEach(el=>{
     const attr=el.tagName==='LINK'?'href':'src';
     const old=el.getAttribute(attr); if(!old||old.includes('data:')) return;
